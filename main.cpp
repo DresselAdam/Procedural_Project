@@ -1,6 +1,8 @@
 #include <iostream>
 
+using namespace std;
+
 int main() {
-    std::cout << "My shit is broken" << std::endl;
+    cout << "This is a test!" << endl;
     return 0;
 }
