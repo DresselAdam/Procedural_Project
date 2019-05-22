@@ -1,54 +1,68 @@
 #include <iostream>
 #include <fstream>
 #include <cstdlib>
+#include <string>
+#include <typeinfo>
 
 using namespace std;
 
+void showMenu(string);
+void showWelcome();
+
 int main() {
+    showWelcome();
+
     //Strings userName and password hold user input for creating an account.
     string userName;
     string password;
-    cout << "Welcome to OraclProduction Ltd!\n";
-
-    cout << "It seems you are new! Please create a username and password:\n" ;
 
     cin >> userName;
-    cin >> password;
 
-    // Creates text file to hold accounts.
-    ofstream accounts;
-    accounts.open("accounts.txt");
-    // Writes text to accounts file.
-    accounts << "Username: " << userName << " - Password: " << password << endl;
-    // Menu Output
-    cout << "Welcome Aboard! " + userName + "!\n";
-    cout << "1. Add Music Player\n" << "2. Add Movie Player\n" << "3. View Production Statistics\n"
-         << "4. Create New Employee\n" << "5. Exit\n";
+    showMenu(userName);
 
-    // Menu choice takes an integer as an input for menu selection.
-    int menuChoice;
-    cin >> menuChoice;
-
+    bool menuOpt;
     // Different paths for menu selection are put into a switch statement
     // Case 5 terminates the program by calling the exit function.
-    switch(menuChoice){
-        case 1:
-            cout << "Music Player Added!" << endl;
-            break;
-        case 2:
-            cout << "Movie Player Added!" << endl;
-            break;
-        case 3:
-            cout << "Display Stats" << endl;
-            break;
-        case 4:
-            cout << "Create New Employee" << endl;
-            break;
-        case 5:
-            cout << "GoodBye!";
-            exit(0);
-        default:
-            cout << "Please choose a valid menu option" << endl;
-    }
+    do {
+
+        int menuChoice;
+        // Menu choice takes an integer as an input for menu selection.
+        cin >> menuChoice;
+
+        switch (menuChoice) {
+            case 1:
+                cout << "Production Function" << endl;
+                menuOpt = true;
+                break;
+            case 2:
+                cout << "Display Stats" << endl;
+                menuOpt = true;
+                break;
+            case 3:
+                cout << "Create New Employee" << endl;
+                menuOpt = true;
+                break;
+            case 4:
+                cout << "GoodBye!";
+                exit(0);
+            default:
+                menuOpt = false;
+                cout << "Please choose a valid menu option" << endl;
+        }
+    }while(!menuOpt);
     return 0;
+}
+
+void showWelcome() {
+    cout << "Welcome to OraclProduction Ltd!\n";
+
+    cout << "It seems you are new! Please create a username:\n" ;
+}
+
+void showMenu(string userName) {
+// Menu Output
+    cout << "Welcome Aboard " + userName + "! Please choose a menu option.\n";
+    cout << "1. Add Production\n" << "2. View Production Statistics\n"
+         << "3. Create New Employee\n" << "4. Exit\n";
+
 }
