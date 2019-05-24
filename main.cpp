@@ -9,9 +9,13 @@ using namespace std;
 
 // prototypes
 void showMenu(string);
+
 void showWelcome();
+
 void addProduct();
+
 void dispStat();
+
 void addEmp();
 
 // product number is tracked independently of the type of product.
@@ -53,7 +57,7 @@ int main() {
             default:
                 cout << "Please choose a valid menu option" << endl;
         }
-    } while(true);
+    } while (true);
 }
 
 // First welcome screen.
