@@ -1,3 +1,7 @@
+// Adam Dressel
+// Production Line Tracker for Employees.
+
+
 #include <iostream>
 #include <fstream>
 #include <cstdlib>
