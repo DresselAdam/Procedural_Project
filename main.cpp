@@ -162,7 +162,6 @@ int main() {
         switch (menuChoice) {
             case '1':
                 createCatalog();
-                cout << "Items Added!" << endl;
                 break;
             case '2':
                 addProduct();
@@ -193,7 +192,7 @@ void showWelcome() {
 void showMenu(const string &USERNAME) {
 // Menu Output
     cout << "Welcome " + USERNAME + "! Please choose a menu option.\n";
-    cout << "1. Add Items to ProductLine\n" << "2. Produce Items\n"
+    cout << "1. Produce Items\n" << "2. Add Items to ProductLine \n"
          << "3. View Production Statistics\n" << "4. Create New Employee\n" << "5. Exit\n";
 
 }
@@ -273,7 +272,8 @@ void createCatalog() {
         }
         catFile.close();
     } else {
-        cout << "Cannot open file.";
+        cout << "No products in catalog." << endl;
+        return;
     }
     // Call to addItems, each of the vectors are passed as arguments.
     addItems(manufacs, names, types);
@@ -383,6 +383,7 @@ void addItems(const vector<string> &manufacs, const vector<string> &names, vecto
         prodNum++;
     }
     prodFile.close();
+    cout << "Items Added!" << endl;
 }
 
 void sortProdLine() {
