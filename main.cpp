@@ -165,7 +165,7 @@ int main() {
                 break;
             case '2':
                 addProduct();
-                cout << "Products Added!" << endl;
+                cout << "Product Added!" << endl;
                 break;
             case '3':
                 dispStat();
@@ -310,7 +310,7 @@ void addEmp() {
 string chooseManu(vector<string> manufacs) {
     cout << "Please choose a manufacturer" << endl;
     // For loop to iterate through manufacturers and output.
-    for (int i = 0; i < manufacs.size(); i++) {
+    for (unsigned int i = 0; i < manufacs.size(); i++) {
         cout << i + 1 << ". " << manufacs[i] << endl;
     }
 
@@ -318,13 +318,13 @@ string chooseManu(vector<string> manufacs) {
     cin >> choice;
     // Match starts at 1 since user is given options 1 - ...
     // Once a match is found the corresponding index - 1 is returned.
-    for (int match = 1; match <= manufacs.size(); match++) {
+    for (unsigned int match = 1; match <= manufacs.size(); match++) {
         if (match == choice) {
             return manufacs[match - 1];
-            break;
         }
     }
-
+    //Returns an error if no match is found.
+    return "Not a valid menu option.";
 }
 
 string chooseName(vector<string> names, vector<string> manufacs, const string &chosenManu) {
@@ -336,7 +336,7 @@ string chooseName(vector<string> names, vector<string> manufacs, const string &c
     // For loop checks for a match between the chosenManu and the corresponding element of manufacs vector.
     // The matching index is used to print out the correct product name and add it to namesForMenu.
     int i = 0;
-    for (int n = 0; n < names.size(); n++) {
+    for (unsigned int n = 0; n < names.size(); n++) {
         if (manufacs[n] == chosenManu) {
             cout << i + 1 << ". " << names[n] << endl;
             namesForMenu.push_back(names[n]);
@@ -347,29 +347,44 @@ string chooseName(vector<string> names, vector<string> manufacs, const string &c
     cin >> choice;
     // For loop checks to see if the user choice  matches the iterator, and then returns the
     // corresponding index from the namesForMenu made in the previous loop.
-    for (int match = 1; match <= namesForMenu.size(); match++) {
+    for (unsigned int match = 1; match <= namesForMenu.size(); match++) {
         if (match == choice) {
             return namesForMenu[match - 1];
-            break;
         }
     }
+
+    //Returns an error if no match is found.
+    return "Not a valid menu option.";
 
 }
 
 string chooseTypes(vector<string> types, vector<string> names, const string &chosenName) {
     // For loop similar to loops in chooseManu and chooseName.
-    for (int match = 0; match < types.size(); match++) {
+    for (unsigned int match = 0; match < types.size(); match++) {
         if (names[match] == chosenName) {
             return types[match];
         }
     }
+    // Returns an error if no match is found.
+    return "Not a valid menu option.";
 }
 
-void addItems(const vector<string> &manufacs, const vector<string> &names, vector<string> types) {
+void addItems(const vector<string> &manufacs, const vector<string> &names, vector<string> &types) {
     string manufac = chooseManu(manufacs);
+    if (manufac == "Not a valid menu option.") {
+        cout << manufac << endl;
+        return;
+    }
     string name = chooseName(names, manufacs, manufac);
+    if (name == "Not a valid menu option.") {
+        cout << name << endl;
+        return;
+    }
     string type = chooseTypes(types, names, name);
-
+    if (type == "Not a valid menu option.") {
+        cout << type << endl;
+        return;
+    }
     cout << "How many of this item were produced?" << endl;
     int amount;
     cin >> amount;
@@ -451,7 +466,7 @@ void serialToProd() {
     bool foundSerial = false;
     cin >> serialNum;
 
-    for (int n = 0; n < serNums.size(); n++) {
+    for (unsigned int n = 0; n < serNums.size(); n++) {
         if (serNums[n] == serialNum) {
             foundSerial = true;
             cout << prodNums[n] << endl;
@@ -461,3 +476,4 @@ void serialToProd() {
         cout << "No matching serial number found" << endl;
     }
 }
+
