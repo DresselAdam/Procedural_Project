@@ -45,7 +45,28 @@ void dispStat();
 
 void addEmp();
 
-void inputName();
+/**
+ * Gets user input with getline for a first and last name. The first name is the characters up until the first space,
+ * the last name is the proceeding characters after the first space.
+ *
+ * @return Returns the userID created from the user input of first and last name.
+ */
+string getUserID();
+
+/**
+ * @brief Creates userID from two strings
+ *
+ * Creates a userID from the first initial of first name and lowercases of a last name.
+ *
+ * @param First name and last name.
+ * @return Returns the generated userID.
+ */
+string createUserID(string, string);
+
+string getPassword();
+
+bool checkPassword(string);
+
 /** @brief menu output choosing an itemType when adding a product
  */
 void itemTypeChoice();
@@ -478,9 +499,70 @@ void serialToProd() {
 
 // Add employee function is a work in progress.
 void addEmp() {
-    inputName();
+    cout << getUserID() << endl;
+    cout << getPassword() << endl;
 }
 
-void inputName() {
-    cout << "This is inputName" << endl;
+string getUserID() {
+    string name;
+    cout << "Please enter your first and last name, separated by a space." << endl;
+
+    cin.ignore();
+    getline(cin, name);
+
+    // Finds where the first and last name are separated.
+    int space = name.find_first_of(' ');
+
+    string firstName;
+    string surName;
+    // Loop iterates up until the first space, adds each char to first name.
+    for (int letter = 0; letter < space; letter++) {
+        firstName.push_back(name[letter]);
+    }
+    // Index letter starts at the char after the first space. Iterates until the end of string and adds to surName.
+    for (int letter = space + 1; letter < name.size(); letter++) {
+        surName.push_back(name[letter]);
+    }
+    return createUserID(firstName, surName);
+}
+
+string createUserID(string firstName, string surName) {
+    string userID;
+    // Adds first letter of firstName to userID
+    userID.push_back(tolower(firstName[0]));
+    // iterates through surName and converts each character to lower before adding to userID.
+    for (char letter: surName) {
+        userID.push_back(tolower(letter));
+    }
+
+    return userID;
+}
+
+string getPassword() {
+    string password;
+    cout << "Please enter a password with atleast 1 digit, 1 uppercase and 1 lowercase character. " <<
+         "spaces and symbols are not allowed.";
+    do {
+
+        getline(cin, password);
+
+    } while (!checkPassword(password));
+
+    return password;
+}
+
+bool checkPassword(string password) {
+    // Checks to see if the find method returns null. Thus no match was found.
+    if (password.find(' ') != -1 || password.find_first_of("!@#$%^&*()-_=+*[{]};:\'\"|/.,><`~") != -1) {
+        cout << "Invalid password." << endl;
+        return false;
+    } else if (password.find_first_of("qwertyuiopasdfghjklzxcvbnm") == -1
+               || password.find_first_of("QWERTYUIOPASDFGHJKLZXCVBNM") == -1 ||
+               password.find_first_of("1234567890") == -1) {
+        cout << "Invalid password." << endl;
+        return false;
+    } else {
+        return true;
+    }
+
 }
