@@ -167,11 +167,11 @@ void serialToProd();
 int main() {
 
     // Call to the welcome menu function.
-  // showWelcome();
+    // showWelcome();
 
     //String USERNAME holds user input for creating an account.
-   // string USERNAME;
-   // cin >> USERNAME;
+    // string USERNAME;
+    // cin >> USERNAME;
 
     // The loop runs until the user exits the program.
     do {
@@ -216,7 +216,7 @@ void showMenu(const string &USERNAME) {
 // Menu Output
     cout << "Welcome " + USERNAME + "! Please choose a menu option.\n";
     cout << "1. Produce Items\n" << "2. Add Items to ProductLine \n"
-            << "3. View Production Statistics\n" << "4. Create New Employee\n" << "5. Exit\n";
+         << "3. View Production Statistics\n" << "4. Create New Employee\n" << "5. Exit\n";
 
 }
 
@@ -248,7 +248,7 @@ void prodMenu(string &manuFac, string &name, int &typeChoice, string &itemType) 
 void itemTypeChoice() {
     cout << "Select an itemType: \n";
     cout << "1. Audio (\"MM\") \n" << "2. Visual (\"VI\") \n" <<
-                                                              "3. AudioMobile(\"AM\") \n" << "4. VisualMobile(\"VM\")" << endl;
+         "3. AudioMobile(\"AM\") \n" << "4. VisualMobile(\"VM\")" << endl;
 }
 
 void addProduct() {
@@ -305,7 +305,7 @@ void createCatalog() {
 void dispStat() {
     cout << "Select info to display." << endl;
     cout << "1. Items that have been produced \n" <<
-                                                  "2. ProductLine \n" << "3. Find product number by serial number" << endl;
+         "2. ProductLine \n" << "3. Find product number by serial number" << endl;
     // Each menu option corresponds to a different function in the program.
     int dispChoice;
     cin >> dispChoice;
@@ -538,7 +538,7 @@ string getUserID() {
         firstName.push_back(name[letter]);
     }
     // Index letter starts at the char after the first space. Iterates until the end of string and adds to surName.
-    for (int letter = space + 1; letter < name.size(); letter++) {
+    for (unsigned int letter = space + 1; letter < name.size(); letter++) {
         surName.push_back(name[letter]);
     }
     return createUserID(firstName, surName);
