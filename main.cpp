@@ -26,7 +26,7 @@ using namespace std;
 
 void showMenu(const string &);
 
-void showWelcome();
+//void showWelcome();
 
 /** @brief Adds products to the catalog file,
  *
@@ -61,11 +61,13 @@ string getUserID();
  * @param First name and last name.
  * @return Returns the generated userID.
  */
-string createUserID(string, string);
+string createUserID(string, const string&);
 
-string getPassword();
+string getEncryptPass();
 
-bool checkPassword(string);
+bool checkPassword(const string&);
+
+string encryptPass(string);
 
 /** @brief menu output choosing an itemType when adding a product
  */
@@ -146,6 +148,8 @@ void sortProdLine();
  */
 void readProducedItems();
 
+int getProdNum();
+
 /** @brief Finds the production number given a serial number.
  *
  * Production file is siffed through and the production and serial numbers
@@ -155,11 +159,6 @@ void readProducedItems();
  */
 void serialToProd();
 
-/* product number is tracked independently of the type of product.
-This int is still looking for a better home and is not yet correctly
-implemented.
- */
-int prodNum = 1;
 
 /** @brief Calls corresponding functions to run program.
  *
@@ -168,16 +167,16 @@ int prodNum = 1;
 int main() {
 
     // Call to the welcome menu function.
-    showWelcome();
+  // showWelcome();
 
     //String USERNAME holds user input for creating an account.
-    string USERNAME;
-    cin >> USERNAME;
+   // string USERNAME;
+   // cin >> USERNAME;
 
     // The loop runs until the user exits the program.
     do {
         // Calls the showMenu function that displays the main menu.
-        showMenu(USERNAME);
+        showMenu("Bleh");
         // Menu choice takes a character as an input for menu selection.
         char menuChoice;
         cin >> menuChoice;
@@ -207,11 +206,11 @@ int main() {
     } while (true);
 }
 
-void showWelcome() {
+/*void showWelcome() {
     cout << "Welcome to OraclProduction Ltd!\n";
 
     cout << "It seems you are new! Please create a username:\n";
-}
+}*/
 
 void showMenu(const string &USERNAME) {
 // Menu Output
@@ -409,13 +408,13 @@ void addItems(const vector<string> &manufacs, const vector<string> &names, vecto
     int amount;
     cin >> amount;
 
+    int prodNum = getProdNum();
     ofstream prodFile;
     prodFile.open("production.txt", ofstream::app);
 
     for (int serialNum = 1; serialNum <= amount; serialNum++) {
-        prodFile << "Production Number-" << prodNum << "-" << "Serial Number-" <<
+        prodFile << "Production Number-" << ++prodNum << "-" << "Serial Number-" <<
                  manufac.substr(0, 3) << type << setw(5) << setfill('0') << serialNum << endl;
-        prodNum++;
     }
     prodFile.close();
     cout << "Items Added!" << endl;
@@ -446,7 +445,6 @@ void sortProdLine() {
 
 void readProducedItems() {
     string line;
-
     // Chooses file to read from.
     ifstream readFile("production.txt");
     if (readFile.is_open()) {
@@ -455,6 +453,20 @@ void readProducedItems() {
             cout << line << "\n";
         }
     }
+}
+
+int getProdNum() {
+    string line;
+    int prodNum = 0;
+    // Chooses file to read from.
+    ifstream readFile("production.txt");
+    if (readFile.is_open()) {
+        // Gets a line from the text file and increments prodNum for each line.
+        while (getline(readFile, line)) {
+            prodNum++;
+        }
+    }
+    return prodNum;
 }
 
 void serialToProd() {
@@ -499,8 +511,14 @@ void serialToProd() {
 
 // Add employee function is a work in progress.
 void addEmp() {
-    cout << getUserID() << endl;
-    cout << getPassword() << endl;
+    string userID = getUserID();
+    string encryptPass = getEncryptPass();
+    cout << "Your userID is: " << userID << endl;
+    cout << encryptPass << endl;
+
+    ofstream accountsFile;
+    accountsFile.open("Employees.txt");
+    accountsFile << userID << ' ' << encryptPass << endl;
 }
 
 string getUserID() {
@@ -526,7 +544,7 @@ string getUserID() {
     return createUserID(firstName, surName);
 }
 
-string createUserID(string firstName, string surName) {
+string createUserID(string firstName, const string& surName) {
     string userID;
     // Adds first letter of firstName to userID
     userID.push_back(tolower(firstName[0]));
@@ -538,7 +556,7 @@ string createUserID(string firstName, string surName) {
     return userID;
 }
 
-string getPassword() {
+string getEncryptPass() {
     string password;
     cout << "Please enter a password with atleast 1 digit, 1 uppercase and 1 lowercase character. " <<
          "spaces and symbols are not allowed.";
@@ -548,10 +566,10 @@ string getPassword() {
 
     } while (!checkPassword(password));
 
-    return password;
+    return encryptPass(password);
 }
 
-bool checkPassword(string password) {
+bool checkPassword(const string& password) {
     // Checks to see if the find method returns null. Thus no match was found.
     if (password.find(' ') != -1 || password.find_first_of("!@#$%^&*()-_=+*[{]};:\'\"|/.,><`~") != -1) {
         cout << "Invalid password." << endl;
@@ -564,5 +582,19 @@ bool checkPassword(string password) {
     } else {
         return true;
     }
+
+}
+
+string encryptPass(string password) {
+    string ascii;
+    int asciiVal;
+    int i = 0;
+    for(char letter:password){
+        asciiVal = (int)letter + 3;
+        password[i] = (char)asciiVal;
+        i++;
+    }
+    cout << password << endl;
+    return password;
 
 }
