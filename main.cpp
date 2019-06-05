@@ -1,3 +1,5 @@
+#include <utility>
+
 /** @file main.cpp
  *  @brief Entire media player production program.
  *
@@ -43,6 +45,7 @@ void dispStat();
 
 void addEmp();
 
+void inputName();
 /** @brief menu output choosing an itemType when adding a product
  */
 void itemTypeChoice();
@@ -193,7 +196,7 @@ void showMenu(const string &USERNAME) {
 // Menu Output
     cout << "Welcome " + USERNAME + "! Please choose a menu option.\n";
     cout << "1. Produce Items\n" << "2. Add Items to ProductLine \n"
-         << "3. View Production Statistics\n" << "4. Create New Employee\n" << "5. Exit\n";
+            << "3. View Production Statistics\n" << "4. Create New Employee\n" << "5. Exit\n";
 
 }
 
@@ -225,7 +228,7 @@ void prodMenu(string &manuFac, string &name, int &typeChoice, string &itemType) 
 void itemTypeChoice() {
     cout << "Select an itemType: \n";
     cout << "1. Audio (\"MM\") \n" << "2. Visual (\"VI\") \n" <<
-         "3. AudioMobile(\"AM\") \n" << "4. VisualMobile(\"VM\")" << endl;
+                                                              "3. AudioMobile(\"AM\") \n" << "4. VisualMobile(\"VM\")" << endl;
 }
 
 void addProduct() {
@@ -282,7 +285,7 @@ void createCatalog() {
 void dispStat() {
     cout << "Select info to display." << endl;
     cout << "1. Items that have been produced \n" <<
-         "2. ProductLine \n" << "3. Find product number by serial number" << endl;
+                                                  "2. ProductLine \n" << "3. Find product number by serial number" << endl;
     // Each menu option corresponds to a different function in the program.
     int dispChoice;
     cin >> dispChoice;
@@ -302,10 +305,6 @@ void dispStat() {
 
 }
 
-// Add employee function is a work in progress.
-void addEmp() {
-    cout << "Work in progress..." << endl;
-}
 
 string chooseManu(vector<string> manufacs) {
     cout << "Please choose a manufacturer" << endl;
@@ -369,7 +368,7 @@ string chooseTypes(vector<string> types, vector<string> names, const string &cho
     return "Not a valid menu option.";
 }
 
-void addItems(const vector<string> &manufacs, const vector<string> &names, vector<string> &types) {
+void addItems(const vector<string> &manufacs, const vector<string> &names, vector<string> types) {
     string manufac = chooseManu(manufacs);
     if (manufac == "Not a valid menu option.") {
         cout << manufac << endl;
@@ -380,7 +379,7 @@ void addItems(const vector<string> &manufacs, const vector<string> &names, vecto
         cout << name << endl;
         return;
     }
-    string type = chooseTypes(types, names, name);
+    string type = chooseTypes(std::move(types), names, name);
     if (type == "Not a valid menu option.") {
         cout << type << endl;
         return;
@@ -477,3 +476,11 @@ void serialToProd() {
     }
 }
 
+// Add employee function is a work in progress.
+void addEmp() {
+    inputName();
+}
+
+void inputName() {
+    cout << "This is inputName" << endl;
+}
