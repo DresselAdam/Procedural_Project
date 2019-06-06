@@ -8,7 +8,8 @@
  *
  *
  *  @author Adam M. Dressel
- *  @bug No known bugs.
+ *  @bug Login currently broken. Program currently cannot verify usernames past the first line.
+ *  The elements added to the vector contain a space that is not recognized.
  */
 
 #include <iostream>
@@ -24,9 +25,7 @@ using namespace std;
 
 // prototypes
 
-void showMenu(const string &);
-
-//void showWelcome();
+void showMenu();
 
 /** @brief Adds products to the catalog file,
  *
@@ -61,13 +60,86 @@ string getUserID();
  * @param First name and last name.
  * @return Returns the generated userID.
  */
-string createUserID(string, const string&);
+string createUserID(string, const string &);
 
+/**
+ * @brief Takes user input to add password.
+ *
+ * This function takes user input for a password. If input does not match the parameters in check password,
+ * the loop continues until a proper password is entered.
+ *
+ * @return Returns a string value, the password entered encrypted.
+ * */
 string getEncryptPass();
 
-bool checkPassword(const string&);
+/**
+ * @brief Checks conditions of a string in an if else statement.
+ *
+ * Uses the string method find_first_of to determine if certain characters are in the string. If characters are not
+ * supposed be in the string then the boolean value returned reflects the failure to pass the requirements.
+ *
+ * @param A string that is chosen as a password.
+ * @return Returns a boolean value based on if the string is a proper password based on the given restrictions.
+ */
+bool checkPassword(const string &);
 
+/**
+ * @brief Takes a string and shifts its ascii codes.
+ *
+ * @param Takes in a string, which is a supposed password.
+ * @return Returns the passed in string with shifted ascii codes.
+ * */
 string encryptPass(string);
+
+/**
+ @brief Prints a menu for the user to login or create an account.
+ *
+ * A switch case calling different functions based on user input.
+ *
+ * */
+void loginMenu();
+
+void outputLoginStr();
+
+/**
+ * @brief Gets user input for their username and password and checks whether they are in the employee file.
+ *
+ * First creates vectors for userID and password by calling corresponding functions. Checks to see if file is empty so
+ * user isn't trapped in infinite login. Inputs are given and compared to elements in the vectors that were created.
+ * Will continue to ask until matching strings are found.
+ *
+ * @return Currently returns a string that is the userID when all security checks have been passed.
+ *
+ * */
+string userLogin();
+
+/**
+ * @brief Reads the employee file and appends each user to a vector.
+ *
+ * Reads the text file while there is a line with a space. Space is used as delimiter, and every other string is skipped
+ * so only userids are added.
+ *
+ * @return Returns a list of the users in the text file.
+ *
+ * */
+vector<string> getUsers();
+
+/**
+ * @brief Very similar to get users function. Except gets encrypted passwords in employee file.
+ * @return Returns a list of password.
+ *
+ * */
+vector<string> getPasswrds();
+
+/**
+ * @brief Checks whether or not the user input string matches one of the users in the list of users vector.
+ *
+ *
+ * @param A string, inputted by the user, and a vector of users obtained from the text file.
+ * @return A boolean value based on if the user id is found in the vector.
+ *
+ * */
+bool findUserId(const string &, const vector<string> &);
 
 /** @brief menu output choosing an itemType when adding a product
  */
@@ -175,8 +247,9 @@ int main() {
 
     // The loop runs until the user exits the program.
     do {
+        //loginMenu();
         // Calls the showMenu function that displays the main menu.
-        showMenu("Bleh");
+        showMenu();
         // Menu choice takes a character as an input for menu selection.
         char menuChoice;
         cin >> menuChoice;
@@ -206,15 +279,9 @@ int main() {
     } while (true);
 }
 
-/*void showWelcome() {
-    cout << "Welcome to OraclProduction Ltd!\n";
-
-    cout << "It seems you are new! Please create a username:\n";
-}*/
-
-void showMenu(const string &USERNAME) {
+void showMenu() {
 // Menu Output
-    cout << "Welcome " + USERNAME + "! Please choose a menu option.\n";
+    cout << "Welcome! Please choose a menu option.\n";
     cout << "1. Produce Items\n" << "2. Add Items to ProductLine \n"
          << "3. View Production Statistics\n" << "4. Create New Employee\n" << "5. Exit\n";
 
@@ -514,10 +581,9 @@ void addEmp() {
     string userID = getUserID();
     string encryptPass = getEncryptPass();
     cout << "Your userID is: " << userID << endl;
-    cout << encryptPass << endl;
 
     ofstream accountsFile;
-    accountsFile.open("Employees.txt");
+    accountsFile.open("Employees.txt", ofstream::app);
     accountsFile << userID << ' ' << encryptPass << endl;
 }
 
@@ -544,7 +610,7 @@ string getUserID() {
     return createUserID(firstName, surName);
 }
 
-string createUserID(string firstName, const string& surName) {
+string createUserID(string firstName, const string &surName) {
     string userID;
     // Adds first letter of firstName to userID
     userID.push_back(tolower(firstName[0]));
@@ -566,17 +632,16 @@ string getEncryptPass() {
 
     } while (!checkPassword(password));
 
+    cout << "Your password is: " << password << endl;
     return encryptPass(password);
 }
 
-bool checkPassword(const string& password) {
+bool checkPassword(const string &password) {
     // Checks to see if the find method returns null. Thus no match was found.
-    if (password.find(' ') != -1 || password.find_first_of("!@#$%^&*()-_=+*[{]};:\'\"|/.,><`~") != -1) {
-        cout << "Invalid password." << endl;
-        return false;
-    } else if (password.find_first_of("qwertyuiopasdfghjklzxcvbnm") == -1
-               || password.find_first_of("QWERTYUIOPASDFGHJKLZXCVBNM") == -1 ||
-               password.find_first_of("1234567890") == -1) {
+    if (password.find(' ') != -1 || password.find_first_of("!@#$%^&*()-_=+*[{]};:\'\"|/.,><`~") != -1 ||
+        password.find_first_of("qwertyuiopasdfghjklzxcvbnm") == -1
+        || password.find_first_of("QWERTYUIOPASDFGHJKLZXCVBNM") == -1 ||
+        password.find_first_of("1234567890") == -1) {
         cout << "Invalid password." << endl;
         return false;
     } else {
@@ -589,12 +654,130 @@ string encryptPass(string password) {
     string ascii;
     int asciiVal;
     int i = 0;
-    for(char letter:password){
-        asciiVal = (int)letter + 3;
-        password[i] = (char)asciiVal;
+    for (char letter:password) {
+        asciiVal = (int) letter + 3;
+        password[i] = (char) asciiVal;
         i++;
     }
-    cout << password << endl;
     return password;
 
+}
+
+void loginMenu() {
+    bool badChoice;
+    char userChoice;
+    do {
+        badChoice = false;
+        outputLoginStr();
+
+        cin >> userChoice;
+
+        switch (userChoice) {
+            case '1':
+                userLogin();
+                break;
+            case '2':
+                addEmp();
+                break;
+            case '3':
+                cout << "Goodbye!";
+                exit(0);
+            default:
+                badChoice = true;
+        }
+    } while (badChoice);
+}
+
+void outputLoginStr() {
+    cout << "Welcome, please sign in or create an account." << endl;
+    cout << "1. Login" << endl << "2. Create an account." << endl;
+    cout << "3. Exit" << endl;
+}
+
+string userLogin() {
+    vector<string> listOfUsers = getUsers();
+    vector<string> listOfPasswords = getPasswrds();
+
+    // Make sure there are users in the employee listing.
+    if (listOfUsers.empty()) {
+        cout << "No employees at this time." << endl;
+        loginMenu();
+    }
+    string userID;
+    string password;
+    bool foundUser;
+
+    cout << "Enter your userID: " << endl;
+    do {
+        cin >> userID;
+        cout << listOfUsers[1];
+        foundUser = findUserId(userID, listOfUsers);
+    } while (!foundUser);
+
+    // Finding index where userID is to check the corresponding password.
+    int i;
+    for (i = 0; i < listOfUsers.size(); i++) {
+        if (userID == listOfUsers[i]) {
+            break;
+        } else {
+
+        }
+    }
+    bool matchPass = true;
+    cout << "Enter your password: " << endl;
+    do {
+        cin >> password;
+        // Changed to encrypted version for comparison.
+        password = encryptPass(password);
+        if (password == listOfPasswords[i]) {
+            cout << "Success!" << endl;
+        } else {
+            cout << "Wrong password." << endl;
+            matchPass = false;
+        }
+    } while (!matchPass);
+
+    return userID;
+}
+
+vector<string> getUsers() {
+    vector<string> userIDs;
+    string userID;
+    ifstream empFile;
+    empFile.open("Employees.txt");
+    if (empFile.is_open()) {
+        while (getline(empFile, userID, ' ')) {
+            userIDs.push_back(userID);
+            getline(empFile, userID);
+        }
+    } else {
+        cout << "Could not open file." << endl;
+    }
+    return userIDs;
+}
+
+vector<string> getPasswrds() {
+    vector<string> passwords;
+    string password;
+    ifstream empFile;
+    empFile.open("Employees.txt");
+    if (empFile.is_open()) {
+        while (getline(empFile, password, ' ')) {
+            getline(empFile, password);
+            passwords.push_back(password);
+        }
+    } else {
+        cout << "Could not open file." << endl;
+    }
+    return passwords;
+}
+
+bool findUserId(const string &userID, const vector<string> &userIDs) {
+    for (const string &id: userIDs) {
+        if (userID == id || (" " + userID) == id) {
+            return true;
+        }
+    }
+    cout << "No user found with that ID. Try again." << endl;
+    return false;
 }

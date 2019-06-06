@@ -44,10 +44,10 @@ RM = "C:\Program Files\JetBrains\CLion 2019.1.3\bin\cmake\win\bin\cmake.exe" -E 
 EQUALS = =
 
 # The top-level source directory on which CMake was run.
-CMAKE_SOURCE_DIR = C:\Users\Adam\Desktop\Procedural_Project
+CMAKE_SOURCE_DIR = C:\Users\Adam\Documents\Procedural_Project\Procedural_Project
 
 # The top-level build directory on which CMake was run.
-CMAKE_BINARY_DIR = C:\Users\Adam\Desktop\Procedural_Project\cmake-build-debug
+CMAKE_BINARY_DIR = C:\Users\Adam\Documents\Procedural_Project\Procedural_Project\cmake-build-debug
 
 # Include any dependencies generated for this target.
 include CMakeFiles\HelloWorld.dir\depend.make
@@ -60,21 +60,21 @@ include CMakeFiles\HelloWorld.dir\flags.make
 
 CMakeFiles\HelloWorld.dir\main.cpp.obj: CMakeFiles\HelloWorld.dir\flags.make
 CMakeFiles\HelloWorld.dir\main.cpp.obj: ..\main.cpp
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=C:\Users\Adam\Desktop\Procedural_Project\cmake-build-debug\CMakeFiles --progress-num=$(CMAKE_PROGRESS_1) "Building CXX object CMakeFiles/HelloWorld.dir/main.cpp.obj"
-	C:\PROGRA~2\MICROS~3\2019\COMMUN~1\VC\Tools\MSVC\1420~1.275\bin\Hostx86\x86\cl.exe @<<
- /nologo /TP $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) /FoCMakeFiles\HelloWorld.dir\main.cpp.obj /FdCMakeFiles\HelloWorld.dir\ /FS -c C:\Users\Adam\Desktop\Procedural_Project\main.cpp
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=C:\Users\Adam\Documents\Procedural_Project\Procedural_Project\cmake-build-debug\CMakeFiles --progress-num=$(CMAKE_PROGRESS_1) "Building CXX object CMakeFiles/HelloWorld.dir/main.cpp.obj"
+	C:\PROGRA~2\MICROS~3\2019\PROFES~1\VC\Tools\MSVC\1420~1.275\bin\Hostx86\x86\cl.exe @<<
+ /nologo /TP $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) /FoCMakeFiles\HelloWorld.dir\main.cpp.obj /FdCMakeFiles\HelloWorld.dir\ /FS -c C:\Users\Adam\Documents\Procedural_Project\Procedural_Project\main.cpp
 <<
 
 CMakeFiles\HelloWorld.dir\main.cpp.i: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing CXX source to CMakeFiles/HelloWorld.dir/main.cpp.i"
-	C:\PROGRA~2\MICROS~3\2019\COMMUN~1\VC\Tools\MSVC\1420~1.275\bin\Hostx86\x86\cl.exe > CMakeFiles\HelloWorld.dir\main.cpp.i @<<
- /nologo /TP $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E C:\Users\Adam\Desktop\Procedural_Project\main.cpp
+	C:\PROGRA~2\MICROS~3\2019\PROFES~1\VC\Tools\MSVC\1420~1.275\bin\Hostx86\x86\cl.exe > CMakeFiles\HelloWorld.dir\main.cpp.i @<<
+ /nologo /TP $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E C:\Users\Adam\Documents\Procedural_Project\Procedural_Project\main.cpp
 <<
 
 CMakeFiles\HelloWorld.dir\main.cpp.s: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling CXX source to assembly CMakeFiles/HelloWorld.dir/main.cpp.s"
-	C:\PROGRA~2\MICROS~3\2019\COMMUN~1\VC\Tools\MSVC\1420~1.275\bin\Hostx86\x86\cl.exe @<<
- /nologo /TP $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) /FoNUL /FAs /FaCMakeFiles\HelloWorld.dir\main.cpp.s /c C:\Users\Adam\Desktop\Procedural_Project\main.cpp
+	C:\PROGRA~2\MICROS~3\2019\PROFES~1\VC\Tools\MSVC\1420~1.275\bin\Hostx86\x86\cl.exe @<<
+ /nologo /TP $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) /FoNUL /FAs /FaCMakeFiles\HelloWorld.dir\main.cpp.s /c C:\Users\Adam\Documents\Procedural_Project\Procedural_Project\main.cpp
 <<
 
 # Object files for target HelloWorld
@@ -87,9 +87,9 @@ HelloWorld_EXTERNAL_OBJECTS =
 HelloWorld.exe: CMakeFiles\HelloWorld.dir\main.cpp.obj
 HelloWorld.exe: CMakeFiles\HelloWorld.dir\build.make
 HelloWorld.exe: CMakeFiles\HelloWorld.dir\objects1.rsp
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --bold --progress-dir=C:\Users\Adam\Desktop\Procedural_Project\cmake-build-debug\CMakeFiles --progress-num=$(CMAKE_PROGRESS_2) "Linking CXX executable HelloWorld.exe"
-	"C:\Program Files\JetBrains\CLion 2019.1.3\bin\cmake\win\bin\cmake.exe" -E vs_link_exe --intdir=CMakeFiles\HelloWorld.dir --rc=C:\PROGRA~2\WI3CF2~1\10\bin\100177~1.0\x86\rc.exe --mt=C:\PROGRA~2\WI3CF2~1\10\bin\100177~1.0\x86\mt.exe --manifests  -- C:\PROGRA~2\MICROS~3\2019\COMMUN~1\VC\Tools\MSVC\1420~1.275\bin\Hostx86\x86\link.exe /nologo @CMakeFiles\HelloWorld.dir\objects1.rsp @<<
- /out:HelloWorld.exe /implib:HelloWorld.lib /pdb:C:\Users\Adam\Desktop\Procedural_Project\cmake-build-debug\HelloWorld.pdb /version:0.0  /machine:X86 /debug /INCREMENTAL /subsystem:console kernel32.lib user32.lib gdi32.lib winspool.lib shell32.lib ole32.lib oleaut32.lib uuid.lib comdlg32.lib advapi32.lib 
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --bold --progress-dir=C:\Users\Adam\Documents\Procedural_Project\Procedural_Project\cmake-build-debug\CMakeFiles --progress-num=$(CMAKE_PROGRESS_2) "Linking CXX executable HelloWorld.exe"
+	"C:\Program Files\JetBrains\CLion 2019.1.3\bin\cmake\win\bin\cmake.exe" -E vs_link_exe --intdir=CMakeFiles\HelloWorld.dir --rc=C:\PROGRA~2\WI3CF2~1\10\bin\100177~1.0\x86\rc.exe --mt=C:\PROGRA~2\WI3CF2~1\10\bin\100177~1.0\x86\mt.exe --manifests  -- C:\PROGRA~2\MICROS~3\2019\PROFES~1\VC\Tools\MSVC\1420~1.275\bin\Hostx86\x86\link.exe /nologo @CMakeFiles\HelloWorld.dir\objects1.rsp @<<
+ /out:HelloWorld.exe /implib:HelloWorld.lib /pdb:C:\Users\Adam\Documents\Procedural_Project\Procedural_Project\cmake-build-debug\HelloWorld.pdb /version:0.0  /machine:X86 /debug /INCREMENTAL /subsystem:console kernel32.lib user32.lib gdi32.lib winspool.lib shell32.lib ole32.lib oleaut32.lib uuid.lib comdlg32.lib advapi32.lib 
 <<
 
 # Rule to build all files generated by this target.
@@ -102,6 +102,6 @@ CMakeFiles\HelloWorld.dir\clean:
 .PHONY : CMakeFiles\HelloWorld.dir\clean
 
 CMakeFiles\HelloWorld.dir\depend:
-	$(CMAKE_COMMAND) -E cmake_depends "NMake Makefiles" C:\Users\Adam\Desktop\Procedural_Project C:\Users\Adam\Desktop\Procedural_Project C:\Users\Adam\Desktop\Procedural_Project\cmake-build-debug C:\Users\Adam\Desktop\Procedural_Project\cmake-build-debug C:\Users\Adam\Desktop\Procedural_Project\cmake-build-debug\CMakeFiles\HelloWorld.dir\DependInfo.cmake --color=$(COLOR)
+	$(CMAKE_COMMAND) -E cmake_depends "NMake Makefiles" C:\Users\Adam\Documents\Procedural_Project\Procedural_Project C:\Users\Adam\Documents\Procedural_Project\Procedural_Project C:\Users\Adam\Documents\Procedural_Project\Procedural_Project\cmake-build-debug C:\Users\Adam\Documents\Procedural_Project\Procedural_Project\cmake-build-debug C:\Users\Adam\Documents\Procedural_Project\Procedural_Project\cmake-build-debug\CMakeFiles\HelloWorld.dir\DependInfo.cmake --color=$(COLOR)
 .PHONY : CMakeFiles\HelloWorld.dir\depend
 
