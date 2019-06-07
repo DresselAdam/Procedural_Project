@@ -466,7 +466,7 @@ void addItems(const vector<string> &manufacs, const vector<string> &names, vecto
         cout << name << endl;
         return;
     }
-    string type = chooseTypes(std::move(types), names, name);
+    string type = chooseTypes(move(types), names, name);
     if (type == "Not a valid menu option.") {
         cout << type << endl;
         return;
@@ -604,7 +604,7 @@ string getUserID() {
         firstName.push_back(name[letter]);
     }
     // Index letter starts at the char after the first space. Iterates until the end of string and adds to surName.
-    for (unsigned int letter = space + 1; letter < name.size(); letter++) {
+    for (int letter = space + 1; letter < name.size(); letter++) {
         surName.push_back(name[letter]);
     }
     return createUserID(firstName, surName);
@@ -613,10 +613,10 @@ string getUserID() {
 string createUserID(string firstName, const string &surName) {
     string userID;
     // Adds first letter of firstName to userID
-    userID.push_back(tolower(firstName[0]));
+    userID.push_back(static_cast<const char>(tolower(firstName[0])));
     // iterates through surName and converts each character to lower before adding to userID.
     for (char letter: surName) {
-        userID.push_back(tolower(letter));
+        userID.push_back(static_cast<const char>(tolower(letter)));
     }
 
     return userID;
