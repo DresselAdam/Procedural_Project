@@ -23,6 +23,21 @@
 
 using namespace std;
 
+struct Product {
+    string manu;
+    string name;
+    string itemType;
+};
+
+struct Item {
+    int prodNum;
+    string serialNum;
+};
+
+struct Employee {
+    string userID;
+    string password;
+};
 // prototypes
 
 void showMenu();
@@ -341,32 +356,37 @@ void addProduct() {
 }
 
 void createCatalog() {
-    // Vectors used to store different types of products for menu output.
-    vector<string> manufacs;
-    vector<string> names;
-    vector<string> types;
-    // Amount of products to be added to the production file.
+    // Product vector used to store each producible item.
+    vector<Product> catalog;
+    // Item holds the place when reading the file.
     string item;
     ifstream catFile;
     catFile.open("catalog.txt");
 
+    // Increments each time a line is extracted from the file.
+    int lineNum = 0;
     if (catFile.is_open()) {
         // While loop gets string up until comma. While there is a comma
         // file will be read and corresponding string will be assigned to item.
         while (getline(catFile, item, ',')) {
-            manufacs.push_back(item);
+            // New Product object is initialized and pushed to the catalog vector.
+            Product line;
+            catalog.push_back(line);
+            catalog[lineNum].manu = item;
             getline(catFile, item, ',');
-            names.push_back(item);
+            catalog[lineNum].name = item;
             getline(catFile, item);
-            types.push_back(item);
+            catalog[lineNum].itemType = item;
+            lineNum++;
         }
         catFile.close();
     } else {
         cout << "No products in catalog." << endl;
         return;
     }
+
     // Call to addItems, each of the vectors are passed as arguments.
-    addItems(manufacs, names, types);
+    //addItems(manufacs, names, types);
 }
 
 void dispStat() {
@@ -710,7 +730,6 @@ string userLogin() {
     cout << "Enter your userID: " << endl;
     do {
         cin >> userID;
-        cout << listOfUsers[1];
         foundUser = findUserId(userID, listOfUsers);
     } while (!foundUser);
 
@@ -723,7 +742,7 @@ string userLogin() {
 
         }
     }
-    bool matchPass = true;
+    bool matchPass;
     cout << "Enter your password: " << endl;
     do {
         cin >> password;
@@ -731,8 +750,9 @@ string userLogin() {
         password = encryptPass(password);
         if (password == listOfPasswords[i]) {
             cout << "Success!" << endl;
+            matchPass = true;
         } else {
-            cout << "Wrong password." << endl;
+            cout << "Wrong password. Please try again:" << endl;
             matchPass = false;
         }
     } while (!matchPass);
