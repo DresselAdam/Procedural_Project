@@ -38,6 +38,7 @@ struct Employee {
     string userID;
     string password;
 };
+
 // prototypes
 
 void showMenu();
@@ -144,7 +145,7 @@ vector<string> getUsers();
  * @return Returns a list of password.
  *
  * */
-vector<string> getPasswrds();
+vector<string> getPasswords();
 
 /**
  * @brief Checks whether or not the user input string matches one of the users in the list of users vector.
@@ -167,7 +168,7 @@ void itemTypeChoice();
  *  vectors. The function calls addItems so that items can be produced based on
  *  what is in the catalog file.
  */
-void createCatalog();
+vector<Product> createCatalog(vector<Product> &);
 
 /** @brief Produces items and adds them to the production file.
  *
@@ -179,7 +180,7 @@ void createCatalog();
  *  @param 3 string vectors used as parameters. Used to pass info
  *  from catalog to the production menu.
  */
-void addItems(const vector<string> &, const vector<string> &, vector<string>);
+void addItems(vector<Product> &catalog);
 
 /** @brief User is prompted to choose a manufacturer from the catalog.
  *
@@ -191,34 +192,7 @@ void addItems(const vector<string> &, const vector<string> &, vector<string>);
  *  @return A string is returned corresponding to the manufacturer chosen
  *  by the user.
  */
-string chooseManu(vector<string> manufacs);
-
-/** @brief User chooses the name corresponding to the manufacturer they chose.
- *
- *  For loop checks for a match between the chosenManu and the corresponding element of manufacs vector.
-    The matching index is used to print out the correct product name and add it to namesForMenu.
-    The menu takes user input and checks for a match in the for loop. The value of the namesForMenu
-    index is chosen based on this input.
- *  @param The first vector is the list of names in the catalog.
- *  @param The second vector is the list of manufacturers in the catalog.
- *  @param The string is the manufacturer returned by chooseManu. Should be
- *  the name of the matching manufacturer.
- *
- *  @return The chosen name is returned as a string.
- */
-string chooseName(vector<string>, vector<string>, const string &);
-
-/** @brief Assigns itemType to product being added based on the chosen name.
- *
- *  For loop similar to those in chooseManu and chooseName. Matching string
- *  is found in names and the corresponding index is used to find the related
- *  itemType.
- *  @param first vector string is list of types
- *  @param second vector string is list of names.
- *  @param string is used to align type with corresponding name.
- *  @return Returns a string of the itemType.
- */
-string chooseTypes(vector<string> types, vector<string> names, const string &chosenName);
+int chooseProduct(vector<Product> &catalog);
 
 /** @brief Sorts the names of products in the catalog A-Z.
  *
@@ -268,11 +242,13 @@ int main() {
         // Menu choice takes a character as an input for menu selection.
         char menuChoice;
         cin >> menuChoice;
-
+        // Product vector used to store each producible item.
+        vector<Product> catalog;
+        createCatalog(catalog);
         // Different paths for menu selection are put into a switch statement
         switch (menuChoice) {
             case '1':
-                createCatalog();
+                addItems(catalog);
                 break;
             case '2':
                 addProduct();
@@ -355,9 +331,8 @@ void addProduct() {
     catFile.close();
 }
 
-void createCatalog() {
-    // Product vector used to store each producible item.
-    vector<Product> catalog;
+vector<Product> createCatalog(vector<Product> &catalog) {
+
     // Item holds the place when reading the file.
     string item;
     ifstream catFile;
@@ -382,11 +357,10 @@ void createCatalog() {
         catFile.close();
     } else {
         cout << "No products in catalog." << endl;
-        return;
     }
 
-    // Call to addItems, each of the vectors are passed as arguments.
-    //addItems(manufacs, names, types);
+    cout << catalog[0].manu << endl;
+    return catalog;
 }
 
 void dispStat() {
@@ -413,84 +387,36 @@ void dispStat() {
 }
 
 
-string chooseManu(vector<string> manufacs) {
-    cout << "Please choose a manufacturer" << endl;
+int chooseProduct(vector<Product> &catalog) {
+    cout << "Please choose a product to produce:" << endl;
     // For loop to iterate through manufacturers and output.
-    for (unsigned int i = 0; i < manufacs.size(); i++) {
-        cout << i + 1 << ". " << manufacs[i] << endl;
+    for (unsigned int i = 0; i < catalog.size(); i++) {
+        cout << i + 1 << ". " << catalog[i].name << endl;
     }
 
     int choice;
     cin >> choice;
     // Match starts at 1 since user is given options 1 - ...
     // Once a match is found the corresponding index - 1 is returned.
-    for (unsigned int match = 1; match <= manufacs.size(); match++) {
+    for (unsigned int match = 1; match <= catalog.size(); match++) {
         if (match == choice) {
-            return manufacs[match - 1];
+            return match - 1;
         }
     }
     //Returns an error if no match is found.
-    return "Not a valid menu option.";
+    return -1;
 }
 
-string chooseName(vector<string> names, vector<string> manufacs, const string &chosenManu) {
-    cout << "Please choose an item to produce." << endl;
-
-    // Select names are appended to the namesForMenu vector, for user choice by input.
-    vector<string> namesForMenu;
-
-    // For loop checks for a match between the chosenManu and the corresponding element of manufacs vector.
-    // The matching index is used to print out the correct product name and add it to namesForMenu.
-    int i = 0;
-    for (unsigned int n = 0; n < names.size(); n++) {
-        if (manufacs[n] == chosenManu) {
-            cout << i + 1 << ". " << names[n] << endl;
-            namesForMenu.push_back(names[n]);
-            i++;
-        }
-    }
-    int choice;
-    cin >> choice;
-    // For loop checks to see if the user choice  matches the iterator, and then returns the
-    // corresponding index from the namesForMenu made in the previous loop.
-    for (unsigned int match = 1; match <= namesForMenu.size(); match++) {
-        if (match == choice) {
-            return namesForMenu[match - 1];
-        }
-    }
-
-    //Returns an error if no match is found.
-    return "Not a valid menu option.";
-
-}
-
-string chooseTypes(vector<string> types, vector<string> names, const string &chosenName) {
-    // For loop similar to loops in chooseManu and chooseName.
-    for (unsigned int match = 0; match < types.size(); match++) {
-        if (names[match] == chosenName) {
-            return types[match];
-        }
-    }
-    // Returns an error if no match is found.
-    return "Not a valid menu option.";
-}
-
-void addItems(const vector<string> &manufacs, const vector<string> &names, vector<string> types) {
-    string manufac = chooseManu(manufacs);
-    if (manufac == "Not a valid menu option.") {
-        cout << manufac << endl;
+void addItems(vector<Product> &catalog) {
+    int productIndex = chooseProduct(catalog);
+    if (productIndex == -1) {
+        cout << "Not a valid product" << endl;
         return;
     }
-    string name = chooseName(names, manufacs, manufac);
-    if (name == "Not a valid menu option.") {
-        cout << name << endl;
-        return;
-    }
-    string type = chooseTypes(move(types), names, name);
-    if (type == "Not a valid menu option.") {
-        cout << type << endl;
-        return;
-    }
+    string name = catalog[productIndex].name;
+    string manufac = catalog[productIndex].manu;
+    string itemType = catalog[productIndex].itemType;
+
     cout << "How many of this item were produced?" << endl;
     int amount;
     cin >> amount;
@@ -501,7 +427,7 @@ void addItems(const vector<string> &manufacs, const vector<string> &names, vecto
 
     for (int serialNum = 1; serialNum <= amount; serialNum++) {
         prodFile << "Production Number-" << ++prodNum << "-" << "Serial Number-" <<
-                 manufac.substr(0, 3) << type << setw(5) << setfill('0') << serialNum << endl;
+                 manufac.substr(0, 3) << itemType << setw(5) << setfill('0') << serialNum << endl;
     }
     prodFile.close();
     cout << "Items Added!" << endl;
@@ -596,7 +522,6 @@ void serialToProd() {
     }
 }
 
-// Add employee function is a work in progress.
 void addEmp() {
     string userID = getUserID();
     string encryptPass = getEncryptPass();
@@ -716,7 +641,7 @@ void outputLoginStr() {
 
 string userLogin() {
     vector<string> listOfUsers = getUsers();
-    vector<string> listOfPasswords = getPasswrds();
+    vector<string> listOfPasswords = getPasswords();
 
     // Make sure there are users in the employee listing.
     if (listOfUsers.empty()) {
@@ -730,6 +655,7 @@ string userLogin() {
     cout << "Enter your userID: " << endl;
     do {
         cin >> userID;
+        cout << listOfUsers[1];
         foundUser = findUserId(userID, listOfUsers);
     } while (!foundUser);
 
@@ -742,7 +668,7 @@ string userLogin() {
 
         }
     }
-    bool matchPass;
+    bool matchPass = true;
     cout << "Enter your password: " << endl;
     do {
         cin >> password;
@@ -750,9 +676,8 @@ string userLogin() {
         password = encryptPass(password);
         if (password == listOfPasswords[i]) {
             cout << "Success!" << endl;
-            matchPass = true;
         } else {
-            cout << "Wrong password. Please try again:" << endl;
+            cout << "Wrong password." << endl;
             matchPass = false;
         }
     } while (!matchPass);
@@ -776,7 +701,7 @@ vector<string> getUsers() {
     return userIDs;
 }
 
-vector<string> getPasswrds() {
+vector<string> getPasswords() {
     vector<string> passwords;
     string password;
     ifstream empFile;
