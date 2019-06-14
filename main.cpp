@@ -36,6 +36,13 @@ struct ProdRecord {
     string type;
 };
 
+struct itemStats {
+    int prodNum;
+    int MMcount;
+    int VIcount;
+    int VMcount;
+    int AMcount;
+};
 /*struct ItemStats {
     int prodNum;
     int countAudio;
@@ -66,7 +73,7 @@ void addProduct();
  *  First step is to display a menu to prompt user input. A switch case
  *  is used to determine the choice and calls the corresponding function.
  */
-void dispStat();
+void dispStat(vector<Product> &catalog, vector<ProdRecord> &prodLog);
 
 void addEmp();
 
@@ -226,7 +233,7 @@ void readProducedItems(vector<ProdRecord> &prodLog);
  * If a match is found in the vector, that same index will be used to output the
  * production number. If not output will say no matching serial number was found.
  */
-void serialToProd();
+void serialToProd(vector<ProdRecord> &itemsLog);
 
 
 /** @brief Calls corresponding functions to run program.
@@ -262,7 +269,7 @@ int main() {
                 cout << "Product Added!" << endl;
                 break;
             case '3':
-                dispStat();
+                dispStat(catalog, prodLog);
                 break;
             case '4':
                 addEmp();
@@ -367,7 +374,7 @@ vector<Product> createCatalog(vector<Product> &catalog) {
     return catalog;
 }
 
-void dispStat() {
+void dispStat(vector<Product> &catalog, vector<ProdRecord> &prodLog) {
     cout << "Select info to display." << endl;
     cout << "1. Items that have been produced \n" <<
          "2. ProductLine \n" << "3. Find product number by serial number" << endl;
@@ -382,7 +389,7 @@ void dispStat() {
             sortProdLine();
             break;
         case 3:
-            serialToProd();
+            serialToProd(prodLog);
             break;
         default:
             cout << "This is not a valid option.";
@@ -440,8 +447,8 @@ void addItems(vector<Product> &catalog, vector<ProdRecord> &prodLog) {
     prodFile.open("ProductionLog.csv", ofstream::app);
 
     for (int serialNum = 1; serialNum <= amount; serialNum++) {
-        prodFile << name << "," << manufac << "," << itemType << "," << ++prodNum << "," <<manufac.substr(0, 3) <<
-        itemType << setw(5) << setfill('0') << serialNum << endl;
+        prodFile << name << "," << manufac << "," << itemType << "," << ++prodNum << "," << manufac.substr(0, 3) <<
+                 itemType << setw(5) << setfill('0') << serialNum << endl;
     }
     prodFile.close();
     cout << "Items Added!" << endl;
@@ -487,7 +494,7 @@ void readProducedItems(vector<ProdRecord> &prodLog) {
             prodLog[lineNum].type = line;
             getline(readFile, line, ',');
             prodLog[lineNum].prodNum = line;
-            getline(readFile,line);
+            getline(readFile, line);
             prodLog[lineNum].serialNum = line;
             lineNum++;
         }
@@ -497,46 +504,21 @@ void readProducedItems(vector<ProdRecord> &prodLog) {
     }
 }
 
-void serialToProd() {
-    vector<string> prodNums;
-    vector<string> serNums;
-    string num;
-    ifstream prodFile;
-    prodFile.open("ProductionLine.csv");
-
-    // This while loop is similar to others used to read textfiles, but uses
-    // the dash character as an optional delimiter.
-    if (prodFile.is_open()) {
-        // Since locations are known, only the second and fourth num in the loop
-        // are added to the vectors.
-        while (getline(prodFile, num, '-')) {
-            getline(prodFile, num, '-');
-            prodNums.push_back(num);
-            getline(prodFile, num, '-');
-            getline(prodFile, num);
-            serNums.push_back(num);
-        }
-        prodFile.close();
-    } else {
-        cout << "Cannot open file.";
-    }
+void serialToProd(vector<ProdRecord> &itemsLog) {
 
     cout << "Enter serial number" << endl;
     string serialNum;
-    bool foundSerial = false;
-    cin >> serialNum;
-
-    for (unsigned int n = 0; n < serNums.size(); n++) {
-        if (serNums[n] == serialNum) {
-            foundSerial = true;
-            cout << prodNums[n] << endl;
+    do {
+        cin >> serialNum;
+        for (ProdRecord item : itemsLog) {
+            if (item.serialNum == serialNum) {
+                cout << item.prodNum << endl;
+                return;
+            }
         }
-    }
-    if (!foundSerial) {
-        cout << "No matching serial number found" << endl;
-    }
+        cout << "No product with that serial number found. Try again." << endl;
+    } while (true);
 }
-
 void addEmp() {
     string userID = getUserID();
     string encryptPass = getEncryptPass();
