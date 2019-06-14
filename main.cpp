@@ -29,24 +29,16 @@ struct Product {
     string itemType;
 };
 
-struct ProdRecord {
-    string prodNum;
-    string serialNum;
-};
-
-/*struct ItemStats {
+struct Item {
     int prodNum;
-    int countAudio;
-    int countVisual;
-    int countAudioM;
-    int countVisualM;
+    string serialNum;
 };
 
 struct Employee {
     string userID;
     string password;
 };
-*/
+
 // prototypes
 
 void showMenu();
@@ -175,8 +167,6 @@ void itemTypeChoice();
  *  are separated with a comma delimiter, and are added to the corresponding
  *  vectors. The function calls addItems so that items can be produced based on
  *  what is in the catalog file.
- *  @param Takes a product vector, manufacturer, name and item type are all added to the struct vector via reference.
- *  @return Returns the modified Product vector.
  */
 vector<Product> createCatalog(vector<Product> &);
 
@@ -187,17 +177,20 @@ vector<Product> createCatalog(vector<Product> &);
  *  one by one via three different functions. User chooses amount and products
  *  are added to text file with a for loop.
  *
- *  @param A Product vector used to read from the catalog. ProdRecord is passed to get the current production number.
+ *  @param 3 string vectors used as parameters. Used to pass info
+ *  from catalog to the production menu.
  */
-void addItems(vector<Product> &catalog, vector<ProdRecord> &prodLog);
+void addItems(vector<Product> &catalog);
 
 /** @brief User is prompted to choose a manufacturer from the catalog.
  *
- *  A list of the product names is given for the user to decide between. This choice is compared to the catalog with
- *  a for loop, the index of the product in the Product vector is returned to get the corresponding manufacturer and
- *  item type.
- *  @param Takes a Product vector, used to compare the user's decision to the products in the catalog.
- *  @return An int is returned related to the index at which the match is found.
+ *  A menu is outputted in the for loop with a list of all the available manufactuers.
+ *  User input is taken, and the matching string is found in the manufacs vector.
+ *  @param Takes a vector manufacs, which is a vector of all the
+ *  manufacturers in the catalog file. Originally from the createCatalog,
+ *  passed to add items and finally passed to this function.
+ *  @return A string is returned corresponding to the manufacturer chosen
+ *  by the user.
  */
 int chooseProduct(vector<Product> &catalog);
 
@@ -211,11 +204,12 @@ void sortProdLine();
 
 /** @brief Prints the production text file to std out.
  *
- *  Creates an ifstream object and pushes the serial and production number to the prodLog vector.
- *
- *  @param Production record vector for holding serial and product numbers.
+ *  Creates an ifstream object and outputs production file line
+ *  by line.
  */
-void readProducedItems(vector<ProdRecord> &prodLog);
+void readProducedItems();
+
+int getProdNum();
 
 /** @brief Finds the production number given a serial number.
  *
@@ -233,28 +227,28 @@ void serialToProd();
  */
 int main() {
 
+    // Call to the welcome menu function.
+    // showWelcome();
+
+    //String USERNAME holds user input for creating an account.
+    // string USERNAME;
+    // cin >> USERNAME;
+
     // The loop runs until the user exits the program.
     do {
-        // Product vector used to store each producible item.
-        vector<Product> catalog;
-        createCatalog(catalog);
-        // ProdRecord vector holds the record of each item produced
-        vector<ProdRecord> prodLog;
-        // Adds production and serial numbers to prodLog
-        readProducedItems(prodLog);
-        loginMenu();
-
+        //loginMenu();
         // Calls the showMenu function that displays the main menu.
-
         showMenu();
         // Menu choice takes a character as an input for menu selection.
         char menuChoice;
         cin >> menuChoice;
-
+        // Product vector used to store each producible item.
+        vector<Product> catalog;
+        createCatalog(catalog);
         // Different paths for menu selection are put into a switch statement
         switch (menuChoice) {
             case '1':
-                addItems(catalog, prodLog);
+                addItems(catalog);
                 break;
             case '2':
                 addProduct();
@@ -332,7 +326,7 @@ void addProduct() {
     prodMenu(manuFac, name, typeChoice, itemType);
     // File used to store products added to inventory.
     ofstream catFile;
-    catFile.open("ProductLine.csv", ofstream::app);
+    catFile.open("catalog.txt", ofstream::app);
     catFile << manuFac + "," << name + "," << itemType << endl;
     catFile.close();
 }
@@ -351,7 +345,7 @@ vector<Product> createCatalog(vector<Product> &catalog) {
         // file will be read and corresponding string will be assigned to item.
         while (getline(catFile, item, ',')) {
             // New Product object is initialized and pushed to the catalog vector.
-            Product line = Product();
+            Product line;
             catalog.push_back(line);
             catalog[lineNum].manu = item;
             getline(catFile, item, ',');
@@ -365,6 +359,7 @@ vector<Product> createCatalog(vector<Product> &catalog) {
         cout << "No products in catalog." << endl;
     }
 
+    cout << catalog[0].manu << endl;
     return catalog;
 }
 
@@ -377,7 +372,7 @@ void dispStat() {
     cin >> dispChoice;
     switch (dispChoice) {
         case 1:
-            //readProducedItems(<#initializer#>);
+            readProducedItems();
             break;
         case 2:
             sortProdLine();
@@ -390,6 +385,7 @@ void dispStat() {
     }
 
 }
+
 
 int chooseProduct(vector<Product> &catalog) {
     cout << "Please choose a product to produce:" << endl;
@@ -411,7 +407,7 @@ int chooseProduct(vector<Product> &catalog) {
     return -1;
 }
 
-void addItems(vector<Product> &catalog, vector<ProdRecord> &prodLog) {
+void addItems(vector<Product> &catalog) {
     int productIndex = chooseProduct(catalog);
     if (productIndex == -1) {
         cout << "Not a valid product" << endl;
@@ -425,13 +421,12 @@ void addItems(vector<Product> &catalog, vector<ProdRecord> &prodLog) {
     int amount;
     cin >> amount;
 
-    string strProdNum = prodLog[prodLog.size() - 1].prodNum;
-    int prodNum = stoi(strProdNum);
+    int prodNum = getProdNum();
     ofstream prodFile;
-    prodFile.open("ProductionLog.csv", ofstream::app);
+    prodFile.open("production.txt", ofstream::app);
 
     for (int serialNum = 1; serialNum <= amount; serialNum++) {
-        prodFile << "Production Number," << ++prodNum << "," << "Serial Number," <<
+        prodFile << "Production Number-" << ++prodNum << "-" << "Serial Number-" <<
                  manufac.substr(0, 3) << itemType << setw(5) << setfill('0') << serialNum << endl;
     }
     prodFile.close();
@@ -442,7 +437,7 @@ void sortProdLine() {
     vector<string> names;
 
     ifstream catFile;
-    catFile.open("ProductLine.csv");
+    catFile.open("catalog.txt");
     string item;
     // This while loop is very similar to the one in createCatalog.
     if (catFile.is_open()) {
@@ -461,27 +456,30 @@ void sortProdLine() {
     }
 }
 
-void readProducedItems(vector<ProdRecord> &prodLog) {
+void readProducedItems() {
     string line;
     // Chooses file to read from.
-    int lineNum = 0;
-    ifstream readFile("ProductionLog.csv");
+    ifstream readFile("production.txt");
     if (readFile.is_open()) {
         // Gets a line from the text file and puts the line into the string line.
-        while (getline(readFile, line, ',')) {
-            ProdRecord product = ProdRecord();
-            prodLog.push_back(product);
-            getline(readFile, line, ',');
-            prodLog[lineNum].prodNum = line;
-            getline(readFile, line, ',');
-            getline(readFile, line);
-            prodLog[lineNum].serialNum = line;
-            lineNum++;
+        while (getline(readFile, line)) {
+            cout << line << "\n";
         }
-    } else {
-        // Exits function if no products are in the log.
-        return;
     }
+}
+
+int getProdNum() {
+    string line;
+    int prodNum = 0;
+    // Chooses file to read from.
+    ifstream readFile("production.txt");
+    if (readFile.is_open()) {
+        // Gets a line from the text file and increments prodNum for each line.
+        while (getline(readFile, line)) {
+            prodNum++;
+        }
+    }
+    return prodNum;
 }
 
 void serialToProd() {
@@ -489,7 +487,7 @@ void serialToProd() {
     vector<string> serNums;
     string num;
     ifstream prodFile;
-    prodFile.open("ProductionLine.csv");
+    prodFile.open("production.txt");
 
     // This while loop is similar to others used to read textfiles, but uses
     // the dash character as an optional delimiter.
@@ -654,9 +652,10 @@ string userLogin() {
     string password;
     bool foundUser;
 
+    cout << "Enter your userID: " << endl;
     do {
-        cout << "Enter your userID:" << endl;
         cin >> userID;
+        cout << listOfUsers[1];
         foundUser = findUserId(userID, listOfUsers);
     } while (!foundUser);
 
@@ -665,9 +664,11 @@ string userLogin() {
     for (i = 0; i < listOfUsers.size(); i++) {
         if (userID == listOfUsers[i]) {
             break;
+        } else {
+
         }
     }
-    bool matchPass;
+    bool matchPass = true;
     cout << "Enter your password: " << endl;
     do {
         cin >> password;
@@ -675,7 +676,6 @@ string userLogin() {
         password = encryptPass(password);
         if (password == listOfPasswords[i]) {
             cout << "Success!" << endl;
-            matchPass = true;
         } else {
             cout << "Wrong password." << endl;
             matchPass = false;
