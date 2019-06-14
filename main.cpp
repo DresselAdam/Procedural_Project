@@ -31,6 +31,9 @@ struct Product {
 struct ProdRecord {
     string prodNum;
     string serialNum;
+    string name;
+    string manufac;
+    string type;
 };
 
 /*struct ItemStats {
@@ -437,8 +440,8 @@ void addItems(vector<Product> &catalog, vector<ProdRecord> &prodLog) {
     prodFile.open("ProductionLog.csv", ofstream::app);
 
     for (int serialNum = 1; serialNum <= amount; serialNum++) {
-        prodFile << name << "," << manufac << "," << itemType << "," << ++prodNum << "," << "Serial Number," <<
-                 manufac.substr(0, 3) << itemType << setw(5) << setfill('0') << serialNum << endl;
+        prodFile << name << "," << manufac << "," << itemType << "," << ++prodNum << "," <<manufac.substr(0, 3) <<
+        itemType << setw(5) << setfill('0') << serialNum << endl;
     }
     prodFile.close();
     cout << "Items Added!" << endl;
@@ -477,10 +480,14 @@ void readProducedItems(vector<ProdRecord> &prodLog) {
         while (getline(readFile, line, ',')) {
             ProdRecord product = ProdRecord();
             prodLog.push_back(product);
+            prodLog[lineNum].name = line;
+            getline(readFile, line, ',');
+            prodLog[lineNum].manufac = line;
+            getline(readFile, line, ',');
+            prodLog[lineNum].type = line;
             getline(readFile, line, ',');
             prodLog[lineNum].prodNum = line;
-            getline(readFile, line, ',');
-            getline(readFile, line);
+            getline(readFile,line);
             prodLog[lineNum].serialNum = line;
             lineNum++;
         }
