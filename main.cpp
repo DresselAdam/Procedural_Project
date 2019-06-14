@@ -8,8 +8,7 @@
  *
  *
  *  @author Adam M. Dressel
- *  @bug Login currently broken. Program currently cannot verify usernames past the first line.
- *  The elements added to the vector contain a space that is not recognized.
+ *
  */
 
 #include <iostream>
@@ -242,10 +241,9 @@ int main() {
         vector<ProdRecord> prodLog;
         // Adds production and serial numbers to prodLog
         readProducedItems(prodLog);
-        loginMenu();
+        // loginMenu();
 
         // Calls the showMenu function that displays the main menu.
-
         showMenu();
         // Menu choice takes a character as an input for menu selection.
         char menuChoice;
@@ -342,7 +340,7 @@ vector<Product> createCatalog(vector<Product> &catalog) {
     // Item holds the place when reading the file.
     string item;
     ifstream catFile;
-    catFile.open("catalog.txt");
+    catFile.open("ProductLine.csv");
 
     // Increments each time a line is extracted from the file.
     int lineNum = 0;
@@ -361,8 +359,6 @@ vector<Product> createCatalog(vector<Product> &catalog) {
             lineNum++;
         }
         catFile.close();
-    } else {
-        cout << "No products in catalog." << endl;
     }
 
     return catalog;
@@ -412,6 +408,10 @@ int chooseProduct(vector<Product> &catalog) {
 }
 
 void addItems(vector<Product> &catalog, vector<ProdRecord> &prodLog) {
+    if (catalog.empty()) {
+        cout << "No products in catalog." << endl;
+        return;
+    }
     int productIndex = chooseProduct(catalog);
     if (productIndex == -1) {
         cout << "Not a valid product" << endl;
@@ -425,13 +425,19 @@ void addItems(vector<Product> &catalog, vector<ProdRecord> &prodLog) {
     int amount;
     cin >> amount;
 
-    string strProdNum = prodLog[prodLog.size() - 1].prodNum;
-    int prodNum = stoi(strProdNum);
+    int prodNum;
+    if (prodLog.empty()) {
+        prodNum = 0;
+    } else {
+        string strProdNum = prodLog[prodLog.size() - 1].prodNum;
+        prodNum = stoi(strProdNum);
+    }
+
     ofstream prodFile;
     prodFile.open("ProductionLog.csv", ofstream::app);
 
     for (int serialNum = 1; serialNum <= amount; serialNum++) {
-        prodFile << "Production Number," << ++prodNum << "," << "Serial Number," <<
+        prodFile << name << "," << manufac << "," << itemType << "," << ++prodNum << "," << "Serial Number," <<
                  manufac.substr(0, 3) << itemType << setw(5) << setfill('0') << serialNum << endl;
     }
     prodFile.close();
