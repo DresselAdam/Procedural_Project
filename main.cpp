@@ -251,7 +251,7 @@ int main() {
 
         prodRecStats prodLineRecord = {0, 0, 0, 0, 0};
         countTypes(prodLineRecord, prodLog);
-        // loginMenu();
+        loginMenu();
 
         // Calls the showMenu function that displays the main menu.
         showMenu();
