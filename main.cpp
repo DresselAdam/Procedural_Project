@@ -1,4 +1,4 @@
-#include <utility>
+
 
 /** @file main.cpp
  *  @brief Entire media player production program.
@@ -10,7 +10,7 @@
  *  @author Adam M. Dressel
  *
  */
-
+#include <utility>
 #include <iostream>
 #include <fstream>
 #include <cstdlib>
@@ -36,21 +36,14 @@ struct ProdRecord {
     string type;
 };
 
-struct itemStats {
+struct prodRecStats {
     int prodNum;
     int MMcount;
     int VIcount;
     int VMcount;
     int AMcount;
 };
-/*struct ItemStats {
-    int prodNum;
-    int countAudio;
-    int countVisual;
-    int countAudioM;
-    int countVisualM;
-};
-
+/*
 struct Employee {
     string userID;
     string password;
@@ -73,7 +66,11 @@ void addProduct();
  *  First step is to display a menu to prompt user input. A switch case
  *  is used to determine the choice and calls the corresponding function.
  */
-void dispStat(vector<Product> &catalog, vector<ProdRecord> &prodLog);
+void dispStat(vector<Product> &catalog, vector<ProdRecord> &prodLog, prodRecStats &prodLineStats);
+
+void countTypes(prodRecStats &prodLineStats, vector<ProdRecord> &);
+
+void printTypeStats(prodRecStats &prodLineStat);
 
 void addEmp();
 
@@ -216,7 +213,7 @@ int chooseProduct(vector<Product> &catalog);
  *  The names are read from the catalog file and added to the vector.
  *  The sort function is used to sort the names.
  */
-void sortProdLine();
+void sortProdLine(vector<ProdRecord> &itemsLog);
 
 /** @brief Prints the production text file to std out.
  *
@@ -251,6 +248,9 @@ int main() {
         vector<ProdRecord> prodLog;
         // Adds production and serial numbers to prodLog
         readProducedItems(prodLog);
+
+        prodRecStats prodLineRecord = {0, 0, 0, 0, 0};
+        countTypes(prodLineRecord, prodLog);
         // loginMenu();
 
         // Calls the showMenu function that displays the main menu.
@@ -269,7 +269,7 @@ int main() {
                 cout << "Product Added!" << endl;
                 break;
             case '3':
-                dispStat(catalog, prodLog);
+                dispStat(catalog, prodLog, prodLineRecord);
                 break;
             case '4':
                 addEmp();
@@ -374,19 +374,21 @@ vector<Product> createCatalog(vector<Product> &catalog) {
     return catalog;
 }
 
-void dispStat(vector<Product> &catalog, vector<ProdRecord> &prodLog) {
+void dispStat(vector<Product> &catalog, vector<ProdRecord> &prodLog, prodRecStats &prodLineStats) {
     cout << "Select info to display." << endl;
-    cout << "1. Items that have been produced \n" <<
+    cout << "1. Display inventory by type. \n" <<
          "2. ProductLine \n" << "3. Find product number by serial number" << endl;
     // Each menu option corresponds to a different function in the program.
     int dispChoice;
     cin >> dispChoice;
+
+    //prodRecStats prodLineStats = {0, 0, 0, 0, 0};
     switch (dispChoice) {
         case 1:
-            //readProducedItems(<#initializer#>);
+            printTypeStats(prodLineStats);
             break;
         case 2:
-            sortProdLine();
+            sortProdLine(prodLog);
             break;
         case 3:
             serialToProd(prodLog);
@@ -395,6 +397,28 @@ void dispStat(vector<Product> &catalog, vector<ProdRecord> &prodLog) {
             cout << "This is not a valid option.";
     }
 
+}
+
+void countTypes(prodRecStats &prodLineStat, vector<ProdRecord> &itemLog) {
+    for (const ProdRecord &item: itemLog) {
+        if (item.type == "VI") {
+            prodLineStat.VIcount++;
+        } else if (item.type == "MM") {
+            prodLineStat.MMcount++;
+        } else if (item.type == "AM") {
+            prodLineStat.AMcount++;
+        } else {
+            prodLineStat.VMcount++;
+        }
+    }
+    prodLineStat.prodNum = prodLineStat.VMcount + prodLineStat.VIcount + prodLineStat.AMcount + prodLineStat.MMcount;
+}
+
+void printTypeStats(prodRecStats &prodLineStat) {
+    cout << "Items Produced: " << prodLineStat.prodNum << endl
+         << "VM items produced: " << prodLineStat.VMcount << endl << "AM items produced: " << prodLineStat.AMcount <<
+         endl << "MM items produced: " << prodLineStat.MMcount << endl << "VI items produced: " << prodLineStat.VIcount
+         << endl;
 }
 
 int chooseProduct(vector<Product> &catalog) {
@@ -454,22 +478,17 @@ void addItems(vector<Product> &catalog, vector<ProdRecord> &prodLog) {
     cout << "Items Added!" << endl;
 }
 
-void sortProdLine() {
+void sortProdLine(vector<ProdRecord> &itemsLog) {
+    if (itemsLog.empty()) {
+        cout << "No items have been produced." << endl;
+        return;
+    }
+
     vector<string> names;
 
-    ifstream catFile;
-    catFile.open("ProductLine.csv");
-    string item;
-    // This while loop is very similar to the one in createCatalog.
-    if (catFile.is_open()) {
-        while (getline(catFile, item, ',')) {
-            getline(catFile, item, ',');
-            names.push_back(item);
-            getline(catFile, item);
-        }
-        catFile.close();
-    } else {
-        cout << "Cannot open file.";
+    names.reserve(itemsLog.size());
+    for (const ProdRecord &item: itemsLog) {
+        names.push_back(item.name);
     }
     sort(names.begin(), names.end());
     for (const string &name: names) {
@@ -506,19 +525,25 @@ void readProducedItems(vector<ProdRecord> &prodLog) {
 
 void serialToProd(vector<ProdRecord> &itemsLog) {
 
+    if (itemsLog.empty()) {
+        cout << "No items have been produced." << endl;
+        return;
+    }
     cout << "Enter serial number" << endl;
     string serialNum;
     do {
         cin >> serialNum;
-        for (ProdRecord item : itemsLog) {
+        for (const ProdRecord &item : itemsLog) {
             if (item.serialNum == serialNum) {
-                cout << item.prodNum << endl;
+                cout << "Production Number: " << item.prodNum << " Manufacturer: " << item.manufac << " Product: " <<
+                     item.name << " ItemType: " << item.type << endl;
                 return;
             }
         }
         cout << "No product with that serial number found. Try again." << endl;
     } while (true);
 }
+
 void addEmp() {
     string userID = getUserID();
     string encryptPass = getEncryptPass();
@@ -662,7 +687,7 @@ string userLogin() {
             break;
         }
     }
-    bool matchPass = true;
+    bool matchPass;
     cout << "Enter your password: " << endl;
     do {
         cin >> password;
