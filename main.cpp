@@ -22,12 +22,22 @@
 
 using namespace std;
 
+/*
+ * Product struct used for adding products to the catalog/ProductLine
+ * These are the products that an employee can produce.
+ *
+ * A vector is created to hold each catalog item inside an index.
+ * */
 struct Product {
     string manu;
     string name;
     string itemType;
 };
 
+/*
+ * Holds individual item stats. Each product produced has a serial and production number.
+ * The prodRecord also holds the same name manufacturer and type as the Product struct.
+ * */
 struct ProdRecord {
     string prodNum;
     string serialNum;
@@ -36,6 +46,11 @@ struct ProdRecord {
     string type;
 };
 
+/*
+ * ProdRecStats holds the statistics for the current ProductionLog file.
+ * Each itemType count is held, as well as the latest production number.
+ * The latest production number is essentially the items produced to date.
+ * */
 struct prodRecStats {
     int prodNum;
     int MMcount;
