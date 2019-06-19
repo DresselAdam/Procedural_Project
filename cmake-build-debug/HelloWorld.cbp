@@ -84,6 +84,9 @@
 				</MakeCommands>
 			</Target>
 		</Build>
+		<Unit filename="C:/Users/amdressel8336/OneDrive - Florida Gulf Coast University/CLionProjects/Please_Work/cmake-build-debug/CMakeFiles/structs.h">
+			<Option target="HelloWorld"/>
+		</Unit>
 		<Unit filename="C:/Users/amdressel8336/OneDrive - Florida Gulf Coast University/CLionProjects/Please_Work/main.cpp">
 			<Option target="HelloWorld"/>
 		</Unit>

@@ -6,7 +6,7 @@
 #define HELLOWORLD_PROTOTYPES_H
 // prototypes
 
-void showMenu();
+void show_menu();
 
 /** @brief Adds products to the catalog file,
  *
@@ -14,20 +14,20 @@ void showMenu();
  *  to the catalog file. Two menu functions are called to prompt the
  *  user to enter input.
  */
-void addProduct();
+void add_product();
 
 /** @brief dispStat Calls different functions that show certain production statistics.
  *
  *  First step is to display a menu to prompt user input. A switch case
  *  is used to determine the choice and calls the corresponding function.
  */
-void dispStat(vector<Product> &catalog, vector<ProdRecord> &prodLog, prodRecStats &prodLineStats);
+void display_stat(vector<Product>& catalog, vector<Prod_record>& prod_log, Prod_rec_stat& prod_line_stat);
 
-void countTypes(prodRecStats &prodLineStats, vector<ProdRecord> &);
+void count_types(Prod_rec_stat& prod_line_stat, vector<Prod_record>& item_log);
 
-void printTypeStats(prodRecStats &prodLineStat);
+void print_type_stats(Prod_rec_stat& prod_line_stat);
 
-void addEmp();
+void add_emp();
 
 /**
  * Gets user input with getline for a first and last name. The first name is the characters up until the first space,
@@ -35,17 +35,18 @@ void addEmp();
  *
  * @return Returns the userID created from the user input of first and last name.
  */
-string getUserID();
+string get_user_ID();
 
 /**
  * @brief Creates userID from two strings
  *
- * Creates a userID from the first initial of first name and lowercases of a last name.
+ * Creates a userID from the first initial of first name and last name.
+ * It takes the names and converts them to lowercase.
  *
  * @param First name and last name.
  * @return Returns the generated userID.
  */
-string createUserID(string, const string &);
+string create_user_id(string, const string&);
 
 /**
  * @brief Takes user input to add password.
@@ -55,7 +56,7 @@ string createUserID(string, const string &);
  *
  * @return Returns a string value, the password entered encrypted.
  * */
-string getEncryptPass();
+string get_encrypt_pass();
 
 /**
  * @brief Checks conditions of a string in an if else statement.
@@ -66,15 +67,8 @@ string getEncryptPass();
  * @param A string that is chosen as a password.
  * @return Returns a boolean value based on if the string is a proper password based on the given restrictions.
  */
-bool checkPassword(const string &);
+bool check_password(const string&);
 
-/**
- * @brief Takes a string and shifts its ascii codes.
- *
- * @param Takes in a string, which is a supposed password.
- * @return Returns the passed in string with shifted ascii codes.
- * */
-string encryptPass(string);
 
 /**
  @brief Prints a menu for the user to login or create an account.
@@ -82,9 +76,9 @@ string encryptPass(string);
  * A switch case calling different functions based on user input.
  *
  * */
-void loginMenu();
+void login_menu();
 
-void outputLoginStr();
+void output_login_str();
 
 /**
  * @brief Gets user input for their username and password and checks whether they are in the employee file.
@@ -96,7 +90,7 @@ void outputLoginStr();
  * @return Currently returns a string that is the userID when all security checks have been passed.
  *
  * */
-string userLogin();
+string user_login();
 
 /**
  * @brief Reads the employee file and appends each user to a vector.
@@ -107,14 +101,14 @@ string userLogin();
  * @return Returns a list of the users in the text file.
  *
  * */
-vector<string> getUsers();
+vector<string> get_users();
 
 /**
  * @brief Very similar to get users function. Except gets encrypted passwords in employee file.
  * @return Returns a list of password.
  *
  * */
-vector<string> getPasswords();
+vector<string> get_passwords();
 
 /**
  * @brief Checks whether or not the user input string matches one of the users in the list of users vector.
@@ -124,11 +118,11 @@ vector<string> getPasswords();
  * @return A boolean value based on if the user id is found in the vector.
  *
  * */
-bool findUserId(const string &, const vector<string> &);
+bool find_user_id(const string&, const vector<string>&);
 
 /** @brief menu output choosing an itemType when adding a product
  */
-void itemTypeChoice();
+void item_type_choice();
 
 /** @brief Creates vectors for holding catalog items.
  *
@@ -139,7 +133,7 @@ void itemTypeChoice();
  *  @param Takes a product vector, manufacturer, name and item type are all added to the struct vector via reference.
  *  @return Returns the modified Product vector.
  */
-vector<Product> createCatalog(vector<Product> &);
+vector<Product> create_catalog(vector<Product>& catalog);
 
 /** @brief Produces items and adds them to the production file.
  *
@@ -150,7 +144,7 @@ vector<Product> createCatalog(vector<Product> &);
  *
  *  @param A Product vector used to read from the catalog. ProdRecord is passed to get the current production number.
  */
-void addItems(vector<Product> &catalog, vector<ProdRecord> &prodLog);
+void add_items(vector<Product>& catalog, vector<Prod_record>& prod_log);
 
 /** @brief User is prompted to choose a manufacturer from the catalog.
  *
@@ -160,7 +154,7 @@ void addItems(vector<Product> &catalog, vector<ProdRecord> &prodLog);
  *  @param Takes a Product vector, used to compare the user's decision to the products in the catalog.
  *  @return An int is returned related to the index at which the match is found.
  */
-int chooseProduct(vector<Product> &catalog);
+int choose_product(vector<Product>& catalog);
 
 /** @brief Sorts the names of products in the catalog A-Z.
  *
@@ -168,7 +162,7 @@ int chooseProduct(vector<Product> &catalog);
  *  The names are read from the catalog file and added to the vector.
  *  The sort function is used to sort the names.
  */
-void sortProdLine(vector<ProdRecord> &itemsLog);
+void sort_prod_line(vector<Prod_record>& items_log);
 
 /** @brief Prints the production text file to std out.
  *
@@ -176,7 +170,7 @@ void sortProdLine(vector<ProdRecord> &itemsLog);
  *
  *  @param Production record vector for holding serial and product numbers.
  */
-void readProducedItems(vector<ProdRecord> &prodLog);
+void read_produced_items(vector<Prod_record>& prod_log);
 
 /** @brief Finds the production number given a serial number.
  *
@@ -185,5 +179,5 @@ void readProducedItems(vector<ProdRecord> &prodLog);
  * If a match is found in the vector, that same index will be used to output the
  * production number. If not output will say no matching serial number was found.
  */
-void serialToProd(vector<ProdRecord> &itemsLog);
+void serial_to_prod(vector<Prod_record>& items_log);
 #endif //HELLOWORLD_PROTOTYPES_H
