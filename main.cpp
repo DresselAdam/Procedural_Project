@@ -21,6 +21,7 @@
 #include <algorithm>
 
 using namespace std;
+
 #include "cmake-build-debug/CMakeFiles/structs.h"
 
 #include "prototypes.h"
@@ -224,14 +225,17 @@ void count_types(Prod_rec_stat& prod_line_stat, vector<Prod_record>& item_log)
             prod_line_stat.VM_count++;
         }
     }
-    prod_line_stat.prodNum = prod_line_stat.VM_count+prod_line_stat.VI_count+prod_line_stat.AM_count+prod_line_stat.MM_count;
+    prod_line_stat.prodNum =
+            prod_line_stat.VM_count+prod_line_stat.VI_count+prod_line_stat.AM_count+prod_line_stat.MM_count;
 }
 
 void print_type_stats(Prod_rec_stat& prod_line_stat)
 {
     cout << "Items Produced: " << prod_line_stat.prodNum << endl
-         << "VM items produced: " << prod_line_stat.VM_count << endl << "AM items produced: " << prod_line_stat.AM_count <<
-         endl << "MM items produced: " << prod_line_stat.MM_count << endl << "VI items produced: " << prod_line_stat.VI_count
+         << "VM items produced: " << prod_line_stat.VM_count << endl << "AM items produced: " << prod_line_stat.AM_count
+         <<
+         endl << "MM items produced: " << prod_line_stat.MM_count << endl << "VI items produced: "
+         << prod_line_stat.VI_count
          << endl;
 }
 
@@ -289,7 +293,7 @@ void add_items(vector<Product>& catalog, vector<Prod_record>& prod_log)
 
     for (int serial_num = 1; serial_num<=amount; serial_num++) {
         prod_file << name << "," << manufac << "," << item_type << "," << ++prod_num << "," << manufac.substr(0, 3) <<
-                 item_type << setw(5) << setfill('0') << serial_num << endl;
+                  item_type << setw(5) << setfill('0') << serial_num << endl;
     }
     prod_file.close();
     cout << "Items Added!" << endl;
