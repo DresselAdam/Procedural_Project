@@ -18,7 +18,9 @@ This was made while I was a student at FGCU.
 CLion by JetBrains with Visual Studio Compiler
 C++
 ## Contributing
-
+- Find ways to simplify code and make program more efficient.
+- Implement more features for the inventory tracking system.
+- Convert from procedural paradigm to an object-oriented version.
 
 ## Author
 Adam Dressel
