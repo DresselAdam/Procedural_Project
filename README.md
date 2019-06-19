@@ -7,7 +7,7 @@
 This was made while I was a student at FGCU.
 
 ## Demonstration
-
+Project_Demo.gif
 
 ## Documentation
 
