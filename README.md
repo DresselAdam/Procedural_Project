@@ -28,7 +28,7 @@ C++
 Adam Dressel
 
 ## License
-
+![]LICENSE.MD
 
 ## Acknowledgments
 geeksforgeeks.com
