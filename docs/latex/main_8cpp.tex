@@ -1,0 +1,368 @@
+\hypertarget{main_8cpp}{}\section{main.\+cpp File Reference}
+\label{main_8cpp}\index{main.\+cpp@{main.\+cpp}}
+
+
+Entire media player production program.  
+
+
+{\ttfamily \#include $<$utility$>$}\newline
+{\ttfamily \#include $<$iostream$>$}\newline
+{\ttfamily \#include $<$fstream$>$}\newline
+{\ttfamily \#include $<$cstdlib$>$}\newline
+{\ttfamily \#include $<$string$>$}\newline
+{\ttfamily \#include $<$typeinfo$>$}\newline
+{\ttfamily \#include $<$iomanip$>$}\newline
+{\ttfamily \#include $<$vector$>$}\newline
+{\ttfamily \#include $<$algorithm$>$}\newline
+{\ttfamily \#include \char`\"{}structs.\+h\char`\"{}}\newline
+{\ttfamily \#include \char`\"{}prototypes.\+h\char`\"{}}\newline
+\subsection*{Functions}
+\begin{DoxyCompactItemize}
+\item 
+string \mbox{\hyperlink{main_8cpp_afabcdb4968e3aa1d3af80bb8aba821b7}{encrypt\+\_\+pass}} (string)
+\begin{DoxyCompactList}\small\item\em Takes a string and shifts its ascii codes. \end{DoxyCompactList}\item 
+int \mbox{\hyperlink{main_8cpp_ae66f6b31b5ad750f1fe042a706a4e3d4}{main}} ()
+\begin{DoxyCompactList}\small\item\em Calls corresponding functions to run program. \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{main_8cpp_af67480724089637b55a8148566870f16}\label{main_8cpp_af67480724089637b55a8148566870f16}} 
+void {\bfseries show\+\_\+menu} ()
+\item 
+\mbox{\Hypertarget{main_8cpp_ad748ce4174ab3efff2ec1ba32b2708e7}\label{main_8cpp_ad748ce4174ab3efff2ec1ba32b2708e7}} 
+void {\bfseries prod\+\_\+menu} (string \&manu\+Fac, string \&name, int \&type\+\_\+choice, string \&item\+\_\+type)
+\item 
+\mbox{\Hypertarget{main_8cpp_a7ee7e702dc45326256442b94a4310689}\label{main_8cpp_a7ee7e702dc45326256442b94a4310689}} 
+void \mbox{\hyperlink{main_8cpp_a7ee7e702dc45326256442b94a4310689}{item\+\_\+type\+\_\+choice}} ()
+\begin{DoxyCompactList}\small\item\em menu output choosing an item\+Type when adding a product \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{main_8cpp_a3a70d7e97896a46f37a98b9376508059}{add\+\_\+product}} ()
+\begin{DoxyCompactList}\small\item\em Adds products to the catalog file,. \end{DoxyCompactList}\item 
+vector$<$ \mbox{\hyperlink{struct_product}{Product}} $>$ \mbox{\hyperlink{main_8cpp_aa7d5d78b2a4ce61852a0cb8ae71870a9}{create\+\_\+catalog}} (vector$<$ \mbox{\hyperlink{struct_product}{Product}} $>$ \&catalog)
+\begin{DoxyCompactList}\small\item\em Creates vectors for holding catalog items. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{main_8cpp_a2a66fcb61d67485daebceb9784c25b87}{display\+\_\+stat}} (vector$<$ \mbox{\hyperlink{struct_product}{Product}} $>$ \&catalog, vector$<$ \mbox{\hyperlink{struct_prod__record}{Prod\+\_\+record}} $>$ \&prod\+\_\+log, \mbox{\hyperlink{struct_prod__rec__stat}{Prod\+\_\+rec\+\_\+stat}} \&prod\+\_\+line\+\_\+stat)
+\begin{DoxyCompactList}\small\item\em disp\+Stat Calls different functions that show certain production statistics. \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{main_8cpp_a6fcf3958a881cf6d915c9f37756a3324}\label{main_8cpp_a6fcf3958a881cf6d915c9f37756a3324}} 
+void {\bfseries count\+\_\+types} (\mbox{\hyperlink{struct_prod__rec__stat}{Prod\+\_\+rec\+\_\+stat}} \&prod\+\_\+line\+\_\+stat, vector$<$ \mbox{\hyperlink{struct_prod__record}{Prod\+\_\+record}} $>$ \&item\+\_\+log)
+\item 
+\mbox{\Hypertarget{main_8cpp_a664d17d173851eab316ea90b38338687}\label{main_8cpp_a664d17d173851eab316ea90b38338687}} 
+void {\bfseries print\+\_\+type\+\_\+stats} (\mbox{\hyperlink{struct_prod__rec__stat}{Prod\+\_\+rec\+\_\+stat}} \&prod\+\_\+line\+\_\+stat)
+\item 
+int \mbox{\hyperlink{main_8cpp_a4c24475722b8d89a36b31c3eff6281b3}{choose\+\_\+product}} (vector$<$ \mbox{\hyperlink{struct_product}{Product}} $>$ \&catalog)
+\begin{DoxyCompactList}\small\item\em User is prompted to choose a manufacturer from the catalog. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{main_8cpp_a10b7819a2307e9f65ad268196a1d7103}{add\+\_\+items}} (vector$<$ \mbox{\hyperlink{struct_product}{Product}} $>$ \&catalog, vector$<$ \mbox{\hyperlink{struct_prod__record}{Prod\+\_\+record}} $>$ \&prod\+\_\+log)
+\begin{DoxyCompactList}\small\item\em Produces items and adds them to the production file. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{main_8cpp_a8f23f4301b4a27573458b5d717ac65ed}{sort\+\_\+prod\+\_\+line}} (vector$<$ \mbox{\hyperlink{struct_prod__record}{Prod\+\_\+record}} $>$ \&items\+\_\+log)
+\begin{DoxyCompactList}\small\item\em Sorts the names of products in the catalog A-\/Z. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{main_8cpp_a992c2633488b45c31b4fddb8915470c4}{read\+\_\+produced\+\_\+items}} (vector$<$ \mbox{\hyperlink{struct_prod__record}{Prod\+\_\+record}} $>$ \&prod\+\_\+log)
+\begin{DoxyCompactList}\small\item\em Prints the production text file to std out. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{main_8cpp_ab124c78e4241844e958b45c2e450c658}{serial\+\_\+to\+\_\+prod}} (vector$<$ \mbox{\hyperlink{struct_prod__record}{Prod\+\_\+record}} $>$ \&items\+\_\+log)
+\begin{DoxyCompactList}\small\item\em Finds the production number given a serial number. \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{main_8cpp_aaa505d5f340bd0887e10dc05176761e9}\label{main_8cpp_aaa505d5f340bd0887e10dc05176761e9}} 
+void {\bfseries add\+\_\+emp} ()
+\item 
+string \mbox{\hyperlink{main_8cpp_a9b4118e809b63f588abfa591abdbe431}{get\+\_\+user\+\_\+\+ID}} ()
+\item 
+string \mbox{\hyperlink{main_8cpp_a6c08d892af0bb13b8e9c3c0fea032c1d}{create\+\_\+user\+\_\+id}} (string first\+\_\+name, const string \&sur\+\_\+name)
+\begin{DoxyCompactList}\small\item\em Creates user\+ID from two strings. \end{DoxyCompactList}\item 
+string \mbox{\hyperlink{main_8cpp_aac0123f13331aa3d4cd4d3542f3a2745}{get\+\_\+encrypt\+\_\+pass}} ()
+\begin{DoxyCompactList}\small\item\em Takes user input to add password. \end{DoxyCompactList}\item 
+bool \mbox{\hyperlink{main_8cpp_ab6b501406c15109a58975b56fc54e593}{check\+\_\+password}} (const string \&password)
+\begin{DoxyCompactList}\small\item\em Checks conditions of a string in an if else statement. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{main_8cpp_a91515845ed84b6ca72f6495e97e17d0a}{login\+\_\+menu}} ()
+\begin{DoxyCompactList}\small\item\em Prints a menu for the user to login or create an account. \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{main_8cpp_acfae08a9b886da935071f557207eb5f5}\label{main_8cpp_acfae08a9b886da935071f557207eb5f5}} 
+void {\bfseries output\+\_\+login\+\_\+str} ()
+\item 
+string \mbox{\hyperlink{main_8cpp_a26dcef14bffdf8f97890bec5cb28aecf}{user\+\_\+login}} ()
+\begin{DoxyCompactList}\small\item\em Gets user input for their username and password and checks whether they are in the employee file. \end{DoxyCompactList}\item 
+vector$<$ string $>$ \mbox{\hyperlink{main_8cpp_a84b178e8885661f91b51954f109f13bf}{get\+\_\+users}} ()
+\begin{DoxyCompactList}\small\item\em Reads the employee file and appends each user to a vector. \end{DoxyCompactList}\item 
+vector$<$ string $>$ \mbox{\hyperlink{main_8cpp_a9ee68140f75318686001672700cae41d}{get\+\_\+passwords}} ()
+\begin{DoxyCompactList}\small\item\em Very similar to get users function. Except gets encrypted passwords in employee file. \end{DoxyCompactList}\item 
+bool \mbox{\hyperlink{main_8cpp_a2f380c649bd3f7bec239dc54520948ac}{find\+\_\+user\+\_\+id}} (const string \&user\+\_\+id, const vector$<$ string $>$ \&user\+\_\+\+I\+Ds)
+\begin{DoxyCompactList}\small\item\em Checks whether or not the user input string matches one of the users in the list of users vector. \end{DoxyCompactList}\end{DoxyCompactItemize}
+
+
+\subsection{Detailed Description}
+Entire media player production program. 
+
+This is the main file for the media player production. This was made in C\+OP 2001 in the summer of 2019.
+
+\begin{DoxyAuthor}{Author}
+Adam M. Dressel 
+\end{DoxyAuthor}
+
+
+\subsection{Function Documentation}
+\mbox{\Hypertarget{main_8cpp_a10b7819a2307e9f65ad268196a1d7103}\label{main_8cpp_a10b7819a2307e9f65ad268196a1d7103}} 
+\index{main.\+cpp@{main.\+cpp}!add\+\_\+items@{add\+\_\+items}}
+\index{add\+\_\+items@{add\+\_\+items}!main.\+cpp@{main.\+cpp}}
+\subsubsection{\texorpdfstring{add\+\_\+items()}{add\_items()}}
+{\footnotesize\ttfamily void add\+\_\+items (\begin{DoxyParamCaption}\item[{vector$<$ \mbox{\hyperlink{struct_product}{Product}} $>$ \&}]{catalog,  }\item[{vector$<$ \mbox{\hyperlink{struct_prod__record}{Prod\+\_\+record}} $>$ \&}]{prod\+\_\+log }\end{DoxyParamCaption})}
+
+
+
+Produces items and adds them to the production file. 
+
+The add items function writes products to the production file by taking using the catalog via vectors. Each category for a product is chosen in a menu, one by one via three different functions. User chooses amount and products are added to text file with a for loop.
+
+
+\begin{DoxyParams}{Parameters}
+{\em A} & \mbox{\hyperlink{struct_product}{Product}} vector used to read from the catalog. Prod\+Record is passed to get the current production number. \\
+\hline
+\end{DoxyParams}
+\mbox{\Hypertarget{main_8cpp_a3a70d7e97896a46f37a98b9376508059}\label{main_8cpp_a3a70d7e97896a46f37a98b9376508059}} 
+\index{main.\+cpp@{main.\+cpp}!add\+\_\+product@{add\+\_\+product}}
+\index{add\+\_\+product@{add\+\_\+product}!main.\+cpp@{main.\+cpp}}
+\subsubsection{\texorpdfstring{add\+\_\+product()}{add\_product()}}
+{\footnotesize\ttfamily void add\+\_\+product (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+
+
+Adds products to the catalog file,. 
+
+The add\+Product function takes user input and writes strings to the catalog file. Two menu functions are called to prompt the user to enter input. \mbox{\Hypertarget{main_8cpp_ab6b501406c15109a58975b56fc54e593}\label{main_8cpp_ab6b501406c15109a58975b56fc54e593}} 
+\index{main.\+cpp@{main.\+cpp}!check\+\_\+password@{check\+\_\+password}}
+\index{check\+\_\+password@{check\+\_\+password}!main.\+cpp@{main.\+cpp}}
+\subsubsection{\texorpdfstring{check\+\_\+password()}{check\_password()}}
+{\footnotesize\ttfamily bool check\+\_\+password (\begin{DoxyParamCaption}\item[{const string \&}]{ }\end{DoxyParamCaption})}
+
+
+
+Checks conditions of a string in an if else statement. 
+
+Uses the string method find\+\_\+first\+\_\+of to determine if certain characters are in the string. If characters are not supposed be in the string then the boolean value returned reflects the failure to pass the requirements.
+
+
+\begin{DoxyParams}{Parameters}
+{\em A} & string that is chosen as a password. \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+Returns a boolean value based on if the string is a proper password based on the given restrictions. 
+\end{DoxyReturn}
+\mbox{\Hypertarget{main_8cpp_a4c24475722b8d89a36b31c3eff6281b3}\label{main_8cpp_a4c24475722b8d89a36b31c3eff6281b3}} 
+\index{main.\+cpp@{main.\+cpp}!choose\+\_\+product@{choose\+\_\+product}}
+\index{choose\+\_\+product@{choose\+\_\+product}!main.\+cpp@{main.\+cpp}}
+\subsubsection{\texorpdfstring{choose\+\_\+product()}{choose\_product()}}
+{\footnotesize\ttfamily int choose\+\_\+product (\begin{DoxyParamCaption}\item[{vector$<$ \mbox{\hyperlink{struct_product}{Product}} $>$ \&}]{catalog }\end{DoxyParamCaption})}
+
+
+
+User is prompted to choose a manufacturer from the catalog. 
+
+A list of the product names is given for the user to decide between. This choice is compared to the catalog with a for loop, the index of the product in the \mbox{\hyperlink{struct_product}{Product}} vector is returned to get the corresponding manufacturer and item type. 
+\begin{DoxyParams}{Parameters}
+{\em Takes} & a \mbox{\hyperlink{struct_product}{Product}} vector, used to compare the user\textquotesingle{}s decision to the products in the catalog. \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+An int is returned related to the index at which the match is found. 
+\end{DoxyReturn}
+\mbox{\Hypertarget{main_8cpp_aa7d5d78b2a4ce61852a0cb8ae71870a9}\label{main_8cpp_aa7d5d78b2a4ce61852a0cb8ae71870a9}} 
+\index{main.\+cpp@{main.\+cpp}!create\+\_\+catalog@{create\+\_\+catalog}}
+\index{create\+\_\+catalog@{create\+\_\+catalog}!main.\+cpp@{main.\+cpp}}
+\subsubsection{\texorpdfstring{create\+\_\+catalog()}{create\_catalog()}}
+{\footnotesize\ttfamily vector$<$\mbox{\hyperlink{struct_product}{Product}}$>$ create\+\_\+catalog (\begin{DoxyParamCaption}\item[{vector$<$ \mbox{\hyperlink{struct_product}{Product}} $>$ \&}]{catalog }\end{DoxyParamCaption})}
+
+
+
+Creates vectors for holding catalog items. 
+
+The catalog text file is opened and read from. The categories are separated with a comma delimiter, and are added to the corresponding vectors. The function calls add\+Items so that items can be produced based on what is in the catalog file. 
+\begin{DoxyParams}{Parameters}
+{\em Takes} & a product vector, manufacturer, name and item type are all added to the struct vector via reference. \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+Returns the modified \mbox{\hyperlink{struct_product}{Product}} vector. 
+\end{DoxyReturn}
+\mbox{\Hypertarget{main_8cpp_a6c08d892af0bb13b8e9c3c0fea032c1d}\label{main_8cpp_a6c08d892af0bb13b8e9c3c0fea032c1d}} 
+\index{main.\+cpp@{main.\+cpp}!create\+\_\+user\+\_\+id@{create\+\_\+user\+\_\+id}}
+\index{create\+\_\+user\+\_\+id@{create\+\_\+user\+\_\+id}!main.\+cpp@{main.\+cpp}}
+\subsubsection{\texorpdfstring{create\+\_\+user\+\_\+id()}{create\_user\_id()}}
+{\footnotesize\ttfamily string create\+\_\+user\+\_\+id (\begin{DoxyParamCaption}\item[{string}]{,  }\item[{const string \&}]{ }\end{DoxyParamCaption})}
+
+
+
+Creates user\+ID from two strings. 
+
+Creates a user\+ID from the first initial of first name and last name. It takes the names and converts them to lowercase.
+
+
+\begin{DoxyParams}{Parameters}
+{\em First} & name and last name. \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+Returns the generated user\+ID. 
+\end{DoxyReturn}
+\mbox{\Hypertarget{main_8cpp_a2a66fcb61d67485daebceb9784c25b87}\label{main_8cpp_a2a66fcb61d67485daebceb9784c25b87}} 
+\index{main.\+cpp@{main.\+cpp}!display\+\_\+stat@{display\+\_\+stat}}
+\index{display\+\_\+stat@{display\+\_\+stat}!main.\+cpp@{main.\+cpp}}
+\subsubsection{\texorpdfstring{display\+\_\+stat()}{display\_stat()}}
+{\footnotesize\ttfamily void display\+\_\+stat (\begin{DoxyParamCaption}\item[{vector$<$ \mbox{\hyperlink{struct_product}{Product}} $>$ \&}]{catalog,  }\item[{vector$<$ \mbox{\hyperlink{struct_prod__record}{Prod\+\_\+record}} $>$ \&}]{prod\+\_\+log,  }\item[{\mbox{\hyperlink{struct_prod__rec__stat}{Prod\+\_\+rec\+\_\+stat}} \&}]{prod\+\_\+line\+\_\+stat }\end{DoxyParamCaption})}
+
+
+
+disp\+Stat Calls different functions that show certain production statistics. 
+
+First step is to display a menu to prompt user input. A switch case is used to determine the choice and calls the corresponding function. \mbox{\Hypertarget{main_8cpp_afabcdb4968e3aa1d3af80bb8aba821b7}\label{main_8cpp_afabcdb4968e3aa1d3af80bb8aba821b7}} 
+\index{main.\+cpp@{main.\+cpp}!encrypt\+\_\+pass@{encrypt\+\_\+pass}}
+\index{encrypt\+\_\+pass@{encrypt\+\_\+pass}!main.\+cpp@{main.\+cpp}}
+\subsubsection{\texorpdfstring{encrypt\+\_\+pass()}{encrypt\_pass()}}
+{\footnotesize\ttfamily string encrypt\+\_\+pass (\begin{DoxyParamCaption}\item[{string}]{password }\end{DoxyParamCaption})}
+
+
+
+Takes a string and shifts its ascii codes. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em Takes} & in a string, which is a supposed password. \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+Returns the passed in string with shifted ascii codes. 
+\end{DoxyReturn}
+\mbox{\Hypertarget{main_8cpp_a2f380c649bd3f7bec239dc54520948ac}\label{main_8cpp_a2f380c649bd3f7bec239dc54520948ac}} 
+\index{main.\+cpp@{main.\+cpp}!find\+\_\+user\+\_\+id@{find\+\_\+user\+\_\+id}}
+\index{find\+\_\+user\+\_\+id@{find\+\_\+user\+\_\+id}!main.\+cpp@{main.\+cpp}}
+\subsubsection{\texorpdfstring{find\+\_\+user\+\_\+id()}{find\_user\_id()}}
+{\footnotesize\ttfamily bool find\+\_\+user\+\_\+id (\begin{DoxyParamCaption}\item[{const string \&}]{,  }\item[{const vector$<$ string $>$ \&}]{ }\end{DoxyParamCaption})}
+
+
+
+Checks whether or not the user input string matches one of the users in the list of users vector. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em A} & string, inputted by the user, and a vector of users obtained from the text file. \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+A boolean value based on if the user id is found in the vector. 
+\end{DoxyReturn}
+\mbox{\Hypertarget{main_8cpp_aac0123f13331aa3d4cd4d3542f3a2745}\label{main_8cpp_aac0123f13331aa3d4cd4d3542f3a2745}} 
+\index{main.\+cpp@{main.\+cpp}!get\+\_\+encrypt\+\_\+pass@{get\+\_\+encrypt\+\_\+pass}}
+\index{get\+\_\+encrypt\+\_\+pass@{get\+\_\+encrypt\+\_\+pass}!main.\+cpp@{main.\+cpp}}
+\subsubsection{\texorpdfstring{get\+\_\+encrypt\+\_\+pass()}{get\_encrypt\_pass()}}
+{\footnotesize\ttfamily string get\+\_\+encrypt\+\_\+pass (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+
+
+Takes user input to add password. 
+
+This function takes user input for a password. If input does not match the parameters in check password, the loop continues until a proper password is entered.
+
+\begin{DoxyReturn}{Returns}
+Returns a string value, the password entered encrypted. 
+\end{DoxyReturn}
+\mbox{\Hypertarget{main_8cpp_a9ee68140f75318686001672700cae41d}\label{main_8cpp_a9ee68140f75318686001672700cae41d}} 
+\index{main.\+cpp@{main.\+cpp}!get\+\_\+passwords@{get\+\_\+passwords}}
+\index{get\+\_\+passwords@{get\+\_\+passwords}!main.\+cpp@{main.\+cpp}}
+\subsubsection{\texorpdfstring{get\+\_\+passwords()}{get\_passwords()}}
+{\footnotesize\ttfamily vector$<$string$>$ get\+\_\+passwords (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+
+
+Very similar to get users function. Except gets encrypted passwords in employee file. 
+
+\begin{DoxyReturn}{Returns}
+Returns a list of password. 
+\end{DoxyReturn}
+\mbox{\Hypertarget{main_8cpp_a9b4118e809b63f588abfa591abdbe431}\label{main_8cpp_a9b4118e809b63f588abfa591abdbe431}} 
+\index{main.\+cpp@{main.\+cpp}!get\+\_\+user\+\_\+\+ID@{get\+\_\+user\+\_\+\+ID}}
+\index{get\+\_\+user\+\_\+\+ID@{get\+\_\+user\+\_\+\+ID}!main.\+cpp@{main.\+cpp}}
+\subsubsection{\texorpdfstring{get\+\_\+user\+\_\+\+I\+D()}{get\_user\_ID()}}
+{\footnotesize\ttfamily string get\+\_\+user\+\_\+\+ID (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+Gets user input with getline for a first and last name. The first name is the characters up until the first space, the last name is the proceeding characters after the first space.
+
+\begin{DoxyReturn}{Returns}
+Returns the user\+ID created from the user input of first and last name. 
+\end{DoxyReturn}
+\mbox{\Hypertarget{main_8cpp_a84b178e8885661f91b51954f109f13bf}\label{main_8cpp_a84b178e8885661f91b51954f109f13bf}} 
+\index{main.\+cpp@{main.\+cpp}!get\+\_\+users@{get\+\_\+users}}
+\index{get\+\_\+users@{get\+\_\+users}!main.\+cpp@{main.\+cpp}}
+\subsubsection{\texorpdfstring{get\+\_\+users()}{get\_users()}}
+{\footnotesize\ttfamily vector$<$string$>$ get\+\_\+users (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+
+
+Reads the employee file and appends each user to a vector. 
+
+Reads the text file while there is a line with a space. Space is used as delimiter, and every other string is skipped so only userids are added.
+
+\begin{DoxyReturn}{Returns}
+Returns a list of the users in the text file. 
+\end{DoxyReturn}
+\mbox{\Hypertarget{main_8cpp_a91515845ed84b6ca72f6495e97e17d0a}\label{main_8cpp_a91515845ed84b6ca72f6495e97e17d0a}} 
+\index{main.\+cpp@{main.\+cpp}!login\+\_\+menu@{login\+\_\+menu}}
+\index{login\+\_\+menu@{login\+\_\+menu}!main.\+cpp@{main.\+cpp}}
+\subsubsection{\texorpdfstring{login\+\_\+menu()}{login\_menu()}}
+{\footnotesize\ttfamily void login\+\_\+menu (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+
+
+Prints a menu for the user to login or create an account. 
+
+A switch case calling different functions based on user input. \mbox{\Hypertarget{main_8cpp_ae66f6b31b5ad750f1fe042a706a4e3d4}\label{main_8cpp_ae66f6b31b5ad750f1fe042a706a4e3d4}} 
+\index{main.\+cpp@{main.\+cpp}!main@{main}}
+\index{main@{main}!main.\+cpp@{main.\+cpp}}
+\subsubsection{\texorpdfstring{main()}{main()}}
+{\footnotesize\ttfamily int main (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+
+
+Calls corresponding functions to run program. 
+
+Outputs a menu and user input is taken to traverse through a switch case. \mbox{\Hypertarget{main_8cpp_a992c2633488b45c31b4fddb8915470c4}\label{main_8cpp_a992c2633488b45c31b4fddb8915470c4}} 
+\index{main.\+cpp@{main.\+cpp}!read\+\_\+produced\+\_\+items@{read\+\_\+produced\+\_\+items}}
+\index{read\+\_\+produced\+\_\+items@{read\+\_\+produced\+\_\+items}!main.\+cpp@{main.\+cpp}}
+\subsubsection{\texorpdfstring{read\+\_\+produced\+\_\+items()}{read\_produced\_items()}}
+{\footnotesize\ttfamily void read\+\_\+produced\+\_\+items (\begin{DoxyParamCaption}\item[{vector$<$ \mbox{\hyperlink{struct_prod__record}{Prod\+\_\+record}} $>$ \&}]{prod\+\_\+log }\end{DoxyParamCaption})}
+
+
+
+Prints the production text file to std out. 
+
+Creates an ifstream object and pushes the serial and production number to the prod\+Log vector.
+
+
+\begin{DoxyParams}{Parameters}
+{\em Production} & record vector for holding serial and product numbers. \\
+\hline
+\end{DoxyParams}
+\mbox{\Hypertarget{main_8cpp_ab124c78e4241844e958b45c2e450c658}\label{main_8cpp_ab124c78e4241844e958b45c2e450c658}} 
+\index{main.\+cpp@{main.\+cpp}!serial\+\_\+to\+\_\+prod@{serial\+\_\+to\+\_\+prod}}
+\index{serial\+\_\+to\+\_\+prod@{serial\+\_\+to\+\_\+prod}!main.\+cpp@{main.\+cpp}}
+\subsubsection{\texorpdfstring{serial\+\_\+to\+\_\+prod()}{serial\_to\_prod()}}
+{\footnotesize\ttfamily void serial\+\_\+to\+\_\+prod (\begin{DoxyParamCaption}\item[{vector$<$ \mbox{\hyperlink{struct_prod__record}{Prod\+\_\+record}} $>$ \&}]{items\+\_\+log }\end{DoxyParamCaption})}
+
+
+
+Finds the production number given a serial number. 
+
+Production file is siffed through and the production and serial numbers are extracted and added to vectors. User is prompted to type a serial number. If a match is found in the vector, that same index will be used to output the production number. If not output will say no matching serial number was found. \mbox{\Hypertarget{main_8cpp_a8f23f4301b4a27573458b5d717ac65ed}\label{main_8cpp_a8f23f4301b4a27573458b5d717ac65ed}} 
+\index{main.\+cpp@{main.\+cpp}!sort\+\_\+prod\+\_\+line@{sort\+\_\+prod\+\_\+line}}
+\index{sort\+\_\+prod\+\_\+line@{sort\+\_\+prod\+\_\+line}!main.\+cpp@{main.\+cpp}}
+\subsubsection{\texorpdfstring{sort\+\_\+prod\+\_\+line()}{sort\_prod\_line()}}
+{\footnotesize\ttfamily void sort\+\_\+prod\+\_\+line (\begin{DoxyParamCaption}\item[{vector$<$ \mbox{\hyperlink{struct_prod__record}{Prod\+\_\+record}} $>$ \&}]{items\+\_\+log }\end{DoxyParamCaption})}
+
+
+
+Sorts the names of products in the catalog A-\/Z. 
+
+A string vector is created to hold the names of the products in the catalog. The names are read from the catalog file and added to the vector. The sort function is used to sort the names. \mbox{\Hypertarget{main_8cpp_a26dcef14bffdf8f97890bec5cb28aecf}\label{main_8cpp_a26dcef14bffdf8f97890bec5cb28aecf}} 
+\index{main.\+cpp@{main.\+cpp}!user\+\_\+login@{user\+\_\+login}}
+\index{user\+\_\+login@{user\+\_\+login}!main.\+cpp@{main.\+cpp}}
+\subsubsection{\texorpdfstring{user\+\_\+login()}{user\_login()}}
+{\footnotesize\ttfamily string user\+\_\+login (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+
+
+Gets user input for their username and password and checks whether they are in the employee file. 
+
+First creates vectors for user\+ID and password by calling corresponding functions. Checks to see if file is empty so user isn\textquotesingle{}t trapped in infinite login. Inputs are given and compared to elements in the vectors that were created. Will continue to ask until matching strings are found.
+
+\begin{DoxyReturn}{Returns}
+Currently returns a string that is the user\+ID when all security checks have been passed. 
+\end{DoxyReturn}
