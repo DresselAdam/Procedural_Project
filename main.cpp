@@ -22,7 +22,7 @@
 
 using namespace std;
 
-#include "cmake-build-debug/CMakeFiles/structs.h"
+#include "structs.h"
 
 #include "prototypes.h"
 
