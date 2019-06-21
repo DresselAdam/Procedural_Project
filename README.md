@@ -12,7 +12,7 @@ This was made while I was a student at FGCU.
 ## Documentation
 https://dresseladam.github.io/Procedural_Project/html/index.html
 ## Getting Started
-
+Run the helloworld.exe in the cmake folder
 
 ## Built With
 CLion by JetBrains with Visual Studio Compiler
